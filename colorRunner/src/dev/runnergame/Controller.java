@@ -26,8 +26,10 @@ public class Controller implements Runnable {
 		display = new Display(title, width, height);
 	}
 	
+	int x;
+	
 	private void update() {
-		
+		x += 1;
 	}
 	
 	private void render() {
@@ -43,10 +45,10 @@ public class Controller implements Runnable {
 		g.clearRect(0, 0, width, height);
 		
 		// piesti nuo cia => (0;0) yra virsuje kaireje
+		
 		g.setColor(Color.red);
-		g.fillRect(10, 50, 50, 70);
-		g.setColor(Color.green);
-		g.fillRect(0, 0, 10, 10);
+		g.fillRect(x, 50, 50, 70);
+
 		// piesti iki cia
 		
 		bs.show();
@@ -57,12 +59,36 @@ public class Controller implements Runnable {
 		// inicializacija
 		init();
 		
+		int fps = 60;
+		double timePerTick = 1000000000 / fps;	// 1 s = 1b ns
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		//long timer = 0;
+		//int ticks = 0;
+		
 		while(running) {
-			// atnaujinti kintamuosius, pozicijas, objektus, busenas ir t.t.
-			update();
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			//timer += now - lastTime;
+			lastTime = now;
 			
-			// viska nupiesti
-			render();
+			if(delta >= 1) {
+				// atnaujinti kintamuosius, pozicijas, objektus, busenas ir t.t.
+				update();
+				
+				// viska nupiesti
+				render();
+				
+				//ticks++;
+				delta--;
+			}
+/*			
+			if(timer >= 1000000000) {
+				System.out.println("Ticks and Frames: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}*/
 		}
 		
 		// sustabdyti gija
