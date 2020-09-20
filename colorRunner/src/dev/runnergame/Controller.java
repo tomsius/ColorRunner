@@ -1,10 +1,13 @@
 package dev.runnergame;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import dev.runnergame.display.Display;
+import dev.runnergame.input.KeyManager;
+import dev.runnergame.states.GameState;
+import dev.runnergame.states.MenuState;
+import dev.runnergame.states.State;
 
 public class Controller implements Runnable {
 	private Display display;
@@ -16,20 +19,34 @@ public class Controller implements Runnable {
 	public String title;
 	public int width, height;
 	
+	// States
+	private State gameState;
+	private State menuState;
+	
+	// Input
+	private KeyManager keyManager;
+	
 	public Controller(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		keyManager = new KeyManager();
 	}
 
 	private void init() {
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
+		State.setState(gameState);
 	}
 	
-	int x;
-	
 	private void update() {
-		x += 1;
+		keyManager.update();
+		
+		if(State.getState() != null) {
+			State.getState().update();
+		}
 	}
 	
 	private void render() {
@@ -44,12 +61,9 @@ public class Controller implements Runnable {
 		// isvalyti langa
 		g.clearRect(0, 0, width, height);
 		
-		// piesti nuo cia => (0;0) yra virsuje kaireje
-		
-		g.setColor(Color.red);
-		g.fillRect(x, 50, 50, 70);
-
-		// piesti iki cia
+		if(State.getState() != null) {
+			State.getState().render(g);
+		}
 		
 		bs.show();
 		g.dispose();
@@ -93,6 +107,10 @@ public class Controller implements Runnable {
 		
 		// sustabdyti gija
 		stop();
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 	
 	public synchronized void start() {
