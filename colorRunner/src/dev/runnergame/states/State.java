@@ -3,6 +3,7 @@ package dev.runnergame.states;
 import java.awt.Graphics;
 
 import dev.runnergame.Controller;
+import dev.runnergame.entities.Player;
 
 public abstract class State {
 	private static State currentState = null;
@@ -23,4 +24,5 @@ public abstract class State {
 	
 	public abstract void update();
 	public abstract void render(Graphics g);
+	public abstract Player getPlayer();
 }

@@ -1,15 +1,25 @@
 package dev.runnergame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import dev.runnergame.display.Display;
 import dev.runnergame.input.KeyManager;
 import dev.runnergame.states.GameState;
 import dev.runnergame.states.MenuState;
 import dev.runnergame.states.State;
+import dev.runnergame.client.ServerConnection;
 
 public class Controller implements Runnable {
+	private static final String SERVER_IP = "127.0.0.1";
+	private static final int SERVER_PORT = 9090;
+	private Socket socket;
+	ServerConnection serverConn;
+	
 	private Display display;
 	private Thread thread;
 	private boolean running = false;
@@ -33,12 +43,17 @@ public class Controller implements Runnable {
 		keyManager = new KeyManager();
 	}
 
-	private void init() {
+	private void init() throws UnknownHostException, IOException {
+		socket = new Socket(SERVER_IP, SERVER_PORT);
+		serverConn = new ServerConnection(socket, this);
+		
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
-		gameState = new GameState(this);
+		gameState = new GameState(this, socket);
 		menuState = new MenuState(this);
 		State.setState(gameState);
+		
+		new Thread(serverConn).start();
 	}
 	
 	private void update() {
@@ -71,7 +86,13 @@ public class Controller implements Runnable {
 	
 	public void run() {
 		// inicializacija
-		init();
+		try {
+			init();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		int fps = 60;
 		double timePerTick = 1000000000 / fps;	// 1 s = 1b ns
@@ -80,6 +101,8 @@ public class Controller implements Runnable {
 		long lastTime = System.nanoTime();
 		//long timer = 0;
 		//int ticks = 0;
+		
+		
 		
 		while(running) {
 			now = System.nanoTime();
@@ -97,7 +120,7 @@ public class Controller implements Runnable {
 				//ticks++;
 				delta--;
 			}
-/*			
+			/*			
 			if(timer >= 1000000000) {
 				System.out.println("Ticks and Frames: " + ticks);
 				ticks = 0;
@@ -111,6 +134,10 @@ public class Controller implements Runnable {
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public void drawOpponent(String x, String y) {
+		gameState.getPlayer().updateEnemy(Float.parseFloat(x), Float.parseFloat(y));
 	}
 	
 	public synchronized void start() {
