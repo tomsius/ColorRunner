@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import dev.runnergame.display.Display;
+import dev.runnergame.entities.Effect;
+import dev.runnergame.factory.EffectCreator;
 import dev.runnergame.input.KeyManager;
 import dev.runnergame.states.GameState;
 import dev.runnergame.states.MenuState;
@@ -27,6 +29,10 @@ public class SingletonController implements Runnable {
 	private boolean running = false;
 	private BufferStrategy bs;
 	private Graphics g;
+	
+	private EffectCreator factory;
+	private Effect positive;
+	private Effect negative;
 	
 	public String title;
 	public int width, height;
@@ -56,6 +62,10 @@ public class SingletonController implements Runnable {
 	private void init() throws UnknownHostException, IOException {
 		socket = new Socket(SERVER_IP, SERVER_PORT);
 		serverConn = new ServerConnection(socket, this);
+		
+		factory = new EffectCreator();
+		positive = factory.createEffect("positive", 10, 10);
+		negative = factory.createEffect("negative", 100, 100);
 		
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -89,6 +99,9 @@ public class SingletonController implements Runnable {
 		if(State.getState() != null) {
 			State.getState().render(g);
 		}
+		
+		positive.render(g);
+		negative.render(g);
 		
 		bs.show();
 		g.dispose();
