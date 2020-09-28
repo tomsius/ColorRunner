@@ -6,18 +6,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import dev.runnergame.Controller;
+import dev.runnergame.SingletonController;
 
 public class Player extends Entity {
 	public static final float DEFAULT_SPEED = 3.0f;
 	
-	private Controller controller;
+	private SingletonController controller;
 	private PrintWriter out;
 	private float enemyX = 0.0f, enemyY = 0.0f;
 	private int enemyWidth = 0, enemyHeight = 0;
 	private float speed;
 	
-	public Player(Controller controller, float x, float y, Socket socket) throws IOException {
+	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
 		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
 		this.controller = controller;
 		speed = DEFAULT_SPEED;

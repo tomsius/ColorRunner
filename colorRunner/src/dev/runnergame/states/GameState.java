@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.net.Socket;
 
-import dev.runnergame.Controller;
+import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
 
 public class GameState extends State {
 	private Player player;
 	
-	public GameState(Controller controller, Socket socket) throws IOException {
+	public GameState(SingletonController controller, Socket socket) throws IOException {
 		super(controller);
 		player = new Player(controller, 100, 100, socket);
 	}

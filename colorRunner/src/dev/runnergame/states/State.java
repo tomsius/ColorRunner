@@ -2,7 +2,7 @@ package dev.runnergame.states;
 
 import java.awt.Graphics;
 
-import dev.runnergame.Controller;
+import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
 
 public abstract class State {
@@ -16,9 +16,9 @@ public abstract class State {
 		return currentState;
 	}
 	
-	protected Controller controller;
+	protected SingletonController controller;
 	
-	public State(Controller controller) {
+	public State(SingletonController controller) {
 		this.controller = controller;
 	}
 	

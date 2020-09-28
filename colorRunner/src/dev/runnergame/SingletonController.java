@@ -14,8 +14,8 @@ import dev.runnergame.states.MenuState;
 import dev.runnergame.states.State;
 import dev.runnergame.client.ServerConnection;
 
-public class Controller implements Runnable {
-	private volatile static Controller controller;
+public class SingletonController implements Runnable {
+	private volatile static SingletonController controller;
 	
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 9090;
@@ -38,16 +38,16 @@ public class Controller implements Runnable {
 	// Input
 	private KeyManager keyManager;
 	
-	private Controller(String title, int width, int height) {
+	private SingletonController(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
 		keyManager = new KeyManager();
 	}
 	
-	public static synchronized Controller getInstance(String title, int width, int height) {
+	public static synchronized SingletonController getInstance(String title, int width, int height) {
 		if(controller == null) {
-			controller = new Controller(title, width, height);
+			controller = new SingletonController(title, width, height);
 		}
 		
 		return controller;
