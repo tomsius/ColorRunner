@@ -37,7 +37,7 @@ public class ClientHandler implements Runnable {
 				String[] parts = msg.split(" ");
 				if(msg.contains("coordinates")) {
 					//out.println("Server got: (" + parts[1] + "; " + parts[2] + ")");
-					clients.get(anotherClient).out.println(parts[1] + " " + parts[2]);
+					clients.get(anotherClient).out.println(parts[1] + " " + parts[2] + " " + parts[3] + " " + parts[4]);
 				}
 				else {
 					out.println("Command not found");

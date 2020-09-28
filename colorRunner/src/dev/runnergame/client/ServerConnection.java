@@ -31,7 +31,7 @@ public class ServerConnection implements Runnable {
 				String[] parts = serverResponse.split(" ");
 				//System.out.println("Server says: " + serverResponse);
 				
-				controller.drawOpponent(parts[0], parts[1]);
+				controller.drawOpponent(parts[0], parts[1], parts[2], parts[3]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

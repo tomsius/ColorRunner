@@ -136,8 +136,8 @@ public class Controller implements Runnable {
 		return keyManager;
 	}
 	
-	public void drawOpponent(String x, String y) {
-		gameState.getPlayer().updateEnemy(Float.parseFloat(x), Float.parseFloat(y));
+	public void drawOpponent(String x, String y, String width, String height) {
+		gameState.getPlayer().updateEnemy(Float.parseFloat(x), Float.parseFloat(y), Integer.parseInt(width), Integer.parseInt(height));
 	}
 	
 	public synchronized void start() {
