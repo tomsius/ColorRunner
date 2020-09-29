@@ -3,6 +3,7 @@ package dev.runnergame.entities;
 import java.awt.Graphics;
 
 public abstract class Effect extends Entity {
+
 	public static final int DEFAULT_EFFECT_WIDTH = 10,
 							DEFAULT_EFFECT_HEIGHT = 10;
 

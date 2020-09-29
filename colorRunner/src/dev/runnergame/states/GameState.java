@@ -6,9 +6,6 @@ import java.net.Socket;
 
 import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
-import dev.runnergame.factory.EffectCreator;
-import dev.runnergame.factory.AbstractFactory;
-import dev.runnergame.factory.PlatformCreator;
 
 public class GameState extends State {
 	private Player player;
