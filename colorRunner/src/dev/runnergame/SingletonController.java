@@ -79,8 +79,8 @@ public class SingletonController implements Runnable {
 		positive = factory.createEffect("positive", 10, 10);
 		negative = factory.createEffect("negative", 100, 100);
 
-		platformFactory = StructureFactoryProducer.getFactory(true);
-		obstacleFactory = StructureFactoryProducer.getFactory(false);
+		platformFactory = StructureFactoryProducer.getPlatform();
+		obstacleFactory = StructureFactoryProducer.getObstacle();
 		standardObstacle = obstacleFactory.getStructure("standard", 290, 200);
 		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
 		standardPlatform = platformFactory.getStructure("standard", 300, 300);

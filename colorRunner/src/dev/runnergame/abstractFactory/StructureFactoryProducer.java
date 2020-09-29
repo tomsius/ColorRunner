@@ -2,12 +2,12 @@ package dev.runnergame.abstractFactory;
 
 public class StructureFactoryProducer {
 
-  public static AbstractStructureFactory getFactory(boolean isPlatform) {
-    if (isPlatform) {
+  public static AbstractStructureFactory getPlatform() {
       return new PlatformFactory();
-    } else {
-      return new ObstacleFactory();
-    }
+  }
+
+  public static AbstractStructureFactory getObstacle(){
+    return new ObstacleFactory();
   }
 
 }
