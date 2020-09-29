@@ -16,7 +16,7 @@ public class DisappearingObstacle extends Structure {
 
   @Override
   public void render(Graphics g) {
-    g.setColor(Color.MAGENTA);
+    g.setColor(Color.YELLOW);
     g.fillRect((int) x, (int) y, width, height);
   }
 

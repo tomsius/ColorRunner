@@ -41,8 +41,10 @@ public class SingletonController implements Runnable {
 	//Structure abstract factory
 	private AbstractStructureFactory platformFactory;
 	private AbstractStructureFactory obstacleFactory;
+	private Structure standardObstacle;
 	private Structure disappearingObstacle;
 	private Structure standardPlatform;
+	private Structure disappearingPlatform;
 
 
 	public String title;
@@ -80,8 +82,11 @@ public class SingletonController implements Runnable {
 
 		platformFactory = StructureFactoryProducer.getFactory(true);
 		obstacleFactory = StructureFactoryProducer.getFactory(false);
-		disappearingObstacle = obstacleFactory.getStructure("disappearing", 150, 150, 10, 100);
-		standardPlatform = platformFactory.getStructure("standard", 200, 200, 100, 10);
+		standardObstacle = obstacleFactory.getStructure("standard", 290, 200);
+		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
+		standardPlatform = platformFactory.getStructure("standard", 300, 300);
+		disappearingPlatform = platformFactory.getStructure("disappearing", 200, 300);
+
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -119,8 +124,10 @@ public class SingletonController implements Runnable {
 		positive.render(g);
 		negative.render(g);
 
+		standardObstacle.render(g);
 		disappearingObstacle.render(g);
 		standardPlatform.render(g);
+		disappearingPlatform.render(g);
 
 		bs.show();
 		g.dispose();

@@ -5,10 +5,6 @@ import java.awt.Graphics;
 
 public class StandardObstacle extends Structure {
 
-  public StandardObstacle(float x, float y) {
-    super(x, y);
-  }
-
   public StandardObstacle(float x, float y, int width, int height) {
     super(x, y, width, height);
   }
@@ -20,7 +16,7 @@ public class StandardObstacle extends Structure {
 
   @Override
   public void render(Graphics g) {
-    g.setColor(Color.GRAY);
+    g.setColor(Color.BLUE);
     g.fillRect((int) x, (int) y, width, height);
   }
 

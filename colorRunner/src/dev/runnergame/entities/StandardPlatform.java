@@ -17,7 +17,7 @@ public class StandardPlatform extends Structure {
 
   @Override
   public void render(Graphics g) {
-    g.setColor(Color.BLUE);
+    g.setColor(Color.ORANGE);
     g.fillRect((int) x, (int) y, width, height);
   }
 
