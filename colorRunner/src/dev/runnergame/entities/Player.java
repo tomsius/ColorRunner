@@ -2,36 +2,75 @@ package dev.runnergame.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 
-import dev.runnergame.Controller;
+import dev.runnergame.SingletonController;
 
 public class Player extends Entity {
-	private Controller controller;
+	public static final float DEFAULT_SPEED = 3.0f;
 	
-	public Player(Controller controller, float x, float y) {
-		super(x, y);
+	private SingletonController controller;
+	private PrintWriter out;
+	private float enemyX = 0.0f, enemyY = 0.0f;
+	private int enemyWidth = 0, enemyHeight = 0;
+	private float speed;
+	
+	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
+		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
 		this.controller = controller;
+		speed = DEFAULT_SPEED;
+		out = new PrintWriter(socket.getOutputStream(), true);
 	}
 
 	@Override
 	public void update() {
+		getInput();
+		move();
+		
+		out.println("coordinates " + x + " " + y + " " + width + " " + height);
+	}
+	
+	private void getInput() {
+		xMove = 0;
+		yMove = 0;
+		
 		if(controller.getKeyManager().up) {
-			y -= 3;
+			yMove = -speed;
 		}
 		if(controller.getKeyManager().down) {
-			y += 3;
+			yMove = speed;
 		}
 		if(controller.getKeyManager().left) {
-			x -= 3;
+			xMove = -speed;
 		}
 		if(controller.getKeyManager().right) {
-			x += 3;
+			xMove = speed;
 		}
 	}
 
 	@Override
 	public void render(Graphics g) {
+		g.setColor(Color.green);
+		g.fillRect((int) x, (int) y, width, height);
+		
 		g.setColor(Color.red);
-		g.fillRect((int) x, (int) y, 20, 35);
+		g.fillRect((int) enemyX, (int) enemyY, enemyWidth, enemyHeight);
+	}
+	
+	public void updateEnemy(float x, float y, int width, int height) {
+		this.enemyX = x;
+		this.enemyY = y;
+		this.enemyWidth = width;
+		this.enemyHeight = height;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
 	}
 }
