@@ -3,7 +3,7 @@ package dev.runnergame.entities;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class DisappearingPlatform extends Structure {
+public class DisappearingPlatform extends Platform {
 
   public DisappearingPlatform(float x, float y, int width, int height) {
     super(x, y, width, height);

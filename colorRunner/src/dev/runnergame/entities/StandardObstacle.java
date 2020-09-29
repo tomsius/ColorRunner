@@ -3,7 +3,7 @@ package dev.runnergame.entities;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class StandardObstacle extends Structure {
+public class StandardObstacle extends Obstacle {
 
   public StandardObstacle(float x, float y, int width, int height) {
     super(x, y, width, height);

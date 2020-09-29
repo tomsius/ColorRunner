@@ -3,7 +3,7 @@ package dev.runnergame.entities;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class StandardPlatform extends Structure {
+public class StandardPlatform extends Platform {
 
   public StandardPlatform(float x, float y, int width, int height) {
     super(x, y, width, height);
