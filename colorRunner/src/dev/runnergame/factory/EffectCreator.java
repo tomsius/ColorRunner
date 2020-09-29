@@ -4,10 +4,10 @@ import dev.runnergame.entities.Effect;
 import dev.runnergame.entities.Negative;
 import dev.runnergame.entities.Positive;
 
-public class EffectCreator extends AbstractFactory {
+public class EffectCreator {
 	public Effect createEffect(String effect, float x, float y) {
 		Effect result = null;
-		
+
 		switch(effect) {
 		case "positive":
 			result = new Positive(x, y);
@@ -16,7 +16,6 @@ public class EffectCreator extends AbstractFactory {
 			result = new Negative(x, y);
 			break;
 		}
-		
 		return result;
 	}
 }

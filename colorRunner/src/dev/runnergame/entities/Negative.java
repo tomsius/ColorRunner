@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class Negative extends Effect {
 
 	public Negative(float x, float y) {
-		super(x, y, Effect.DEFAULT_EFFECT_WIDTH, Effect.DEFAULT_EFFECT_HEIGHT);
+		super(x, y);
 	}
 
 	@Override

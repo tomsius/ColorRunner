@@ -10,7 +10,7 @@ public class PlatformCreator extends AbstractFactory {
 			
 		case "satic":
 			return new Platform(x, y, false);
-			
+
     }
 		return null;
   }
