@@ -1,8 +1,7 @@
 package dev.runnergame;
 
-import dev.runnergame.abstractFactory.AbstractStructureFactory;
-import dev.runnergame.abstractFactory.StructureFactoryProducer;
-import dev.runnergame.entities.Entity;
+import dev.runnergame.abstractFactory.AbstractStructureCreator;
+import dev.runnergame.abstractFactory.StructureCreatorProducer;
 import dev.runnergame.entities.Structure;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -39,8 +38,8 @@ public class SingletonController implements Runnable {
 	private Effect negative;
 
 	//Structure abstract factory
-	private AbstractStructureFactory platformFactory;
-	private AbstractStructureFactory obstacleFactory;
+	private AbstractStructureCreator platformFactory;
+	private AbstractStructureCreator obstacleFactory;
 	private Structure standardObstacle;
 	private Structure disappearingObstacle;
 	private Structure standardPlatform;
@@ -80,8 +79,8 @@ public class SingletonController implements Runnable {
 		positive = factory.createEffect("positive", 10, 10);
 		negative = factory.createEffect("negative", 100, 100);
 
-		platformFactory = StructureFactoryProducer.getFactory(true);
-		obstacleFactory = StructureFactoryProducer.getFactory(false);
+		platformFactory = StructureCreatorProducer.getFactory(true);
+		obstacleFactory = StructureCreatorProducer.getFactory(false);
 		standardObstacle = obstacleFactory.getStructure("standard", 290, 200);
 		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
 		standardPlatform = platformFactory.getStructure("standard", 300, 300);

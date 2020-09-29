@@ -1,8 +1,8 @@
 package dev.runnergame.abstractFactory;
 
-public class StructureFactoryProducer {
+public class StructureCreatorProducer {
 
-  public static AbstractStructureFactory getFactory(boolean isPlatform) {
+  public static AbstractStructureCreator getFactory(boolean isPlatform) {
     if (isPlatform) {
       return new PlatformCreator();
     } else {
