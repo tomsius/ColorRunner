@@ -4,7 +4,7 @@ import dev.runnergame.entities.DisappearingPlatform;
 import dev.runnergame.entities.StandardPlatform;
 import dev.runnergame.entities.Structure;
 
-public class PlatformCreator extends AbstractStructureCreator {
+public class PlatformFactory extends AbstractStructureFactory {
 
   public final int DEFAULT_PLATFORM_WIDTH = 100;
   public final int DEFAULT_PLATFORM_HEIGHT = 10;
