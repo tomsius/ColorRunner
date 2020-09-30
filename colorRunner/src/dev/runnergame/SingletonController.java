@@ -73,7 +73,7 @@ public class SingletonController implements Runnable {
 
 	private void init() throws UnknownHostException, IOException {
 		socket = new Socket(SERVER_IP, SERVER_PORT);
-		serverConn = new ServerConnection(socket, this);
+		serverConn = new ServerConnection(socket);
 
 		factory = new EffectCreator();
 		positive = factory.createEffect("positive", 10, 10);
@@ -89,8 +89,8 @@ public class SingletonController implements Runnable {
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
-		gameState = new GameState(this, socket);
-		menuState = new MenuState(this);
+		gameState = new GameState(socket);
+		menuState = new MenuState();
 		State.setState(gameState);
 
 		new Thread(serverConn).start();

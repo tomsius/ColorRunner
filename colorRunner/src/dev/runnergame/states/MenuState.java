@@ -6,8 +6,8 @@ import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
 
 public class MenuState extends State {
-	public MenuState(SingletonController controller) {
-		super(controller);
+	public MenuState() {
+		super();
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import dev.runnergame.entities.Player;
 public class GameState extends State {
 	private Player player;
 	
-	public GameState(SingletonController controller, Socket socket) throws IOException {
-		super(controller);
+	public GameState(Socket socket) throws IOException {
+		super();
 		player = new Player(controller, 100, 100, socket);
 	}
 	

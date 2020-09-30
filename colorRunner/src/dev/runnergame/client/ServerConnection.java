@@ -13,10 +13,10 @@ public class ServerConnection implements Runnable {
 	private BufferedReader in;
 	private SingletonController controller;
 	
-	public ServerConnection(Socket s, SingletonController controller) throws IOException {
+	public ServerConnection(Socket s) throws IOException {
 		server = s;
 		in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-		this.controller = controller;
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 	}
 	
 	@Override

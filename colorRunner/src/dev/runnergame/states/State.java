@@ -18,8 +18,8 @@ public abstract class State {
 	
 	protected SingletonController controller;
 	
-	public State(SingletonController controller) {
-		this.controller = controller;
+	public State() {
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 	}
 	
 	public abstract void update();

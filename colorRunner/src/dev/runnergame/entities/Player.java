@@ -19,7 +19,7 @@ public class Player extends Entity {
 	
 	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
 		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
-		this.controller = controller;
+		this.controller = controller; // pakeisti i singleton
 		speed = DEFAULT_SPEED;
 		out = new PrintWriter(socket.getOutputStream(), true);
 	}
