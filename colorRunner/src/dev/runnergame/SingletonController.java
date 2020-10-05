@@ -2,6 +2,8 @@ package dev.runnergame;
 
 import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
+import dev.runnergame.entities.AccelerationPlatform;
+import dev.runnergame.entities.PlatformAccelerationEffect;
 import dev.runnergame.entities.Structure;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -36,6 +38,7 @@ public class SingletonController implements Runnable {
 	private EffectCreator factory;
 	private Effect positive;
 	private Effect negative;
+	private PlatformAccelerationEffect platformAccelerationEffect;
 
 	//Structure abstract factory
 	private AbstractStructureFactory platformFactory;
@@ -44,6 +47,9 @@ public class SingletonController implements Runnable {
 	private Structure disappearingObstacle;
 	private Structure standardPlatform;
 	private Structure disappearingPlatform;
+	private AccelerationPlatform accPlatform1;
+	private AccelerationPlatform accPlatform2;
+	private AccelerationPlatform accPlatform3;
 
 
 	public String title;
@@ -78,6 +84,8 @@ public class SingletonController implements Runnable {
 		factory = new EffectCreator();
 		positive = factory.createEffect("positive", 10, 10);
 		negative = factory.createEffect("negative", 100, 100);
+		platformAccelerationEffect = new PlatformAccelerationEffect(200,200);
+
 
 		platformFactory = StructureFactoryProducer.getPlatform();
 		obstacleFactory = StructureFactoryProducer.getObstacle();
@@ -85,6 +93,9 @@ public class SingletonController implements Runnable {
 		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
 		standardPlatform = platformFactory.getStructure("standard", 300, 300);
 		disappearingPlatform = platformFactory.getStructure("disappearing", 200, 300);
+		accPlatform1 = new AccelerationPlatform(10,10,50 ,10,platformAccelerationEffect);
+		accPlatform2 = new AccelerationPlatform(70,10,50 ,10,platformAccelerationEffect);
+		accPlatform3 = new AccelerationPlatform(130,10,50 ,10,platformAccelerationEffect);
 
 
 		display = new Display(title, width, height);
@@ -101,6 +112,7 @@ public class SingletonController implements Runnable {
 
 		if(State.getState() != null) {
 			State.getState().update();
+			platformAccelerationEffect.onCollision(gameState.getPlayer());
 		}
 	}
 
@@ -122,11 +134,15 @@ public class SingletonController implements Runnable {
 
 		positive.render(g);
 		negative.render(g);
+		platformAccelerationEffect.render(g);
 
 		standardObstacle.render(g);
 		disappearingObstacle.render(g);
 		standardPlatform.render(g);
 		disappearingPlatform.render(g);
+		accPlatform1.render(g);
+		accPlatform2.render(g);
+		accPlatform3.render(g);
 
 		bs.show();
 		g.dispose();
