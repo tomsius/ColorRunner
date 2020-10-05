@@ -1,0 +1,8 @@
+6
+100 100
+effect positive 10 10
+effect negative 100 10
+obstacle standard 290 200
+obstacle disappearing 390 200
+platform standard 300 300
+platform disappearing 200 300

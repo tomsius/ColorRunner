@@ -33,18 +33,21 @@ public class SingletonController implements Runnable {
 	private Graphics g;
 
 	//Effect factory
-	private EffectCreator factory;
+	private EffectCreator effectFactory;
+	/*
 	private Effect positive;
 	private Effect negative;
+	*/
 
 	//Structure abstract factory
 	private AbstractStructureFactory platformFactory;
 	private AbstractStructureFactory obstacleFactory;
+	/*
 	private Structure standardObstacle;
 	private Structure disappearingObstacle;
 	private Structure standardPlatform;
 	private Structure disappearingPlatform;
-
+	*/
 
 	public String title;
 	public int width, height;
@@ -75,17 +78,20 @@ public class SingletonController implements Runnable {
 		socket = new Socket(SERVER_IP, SERVER_PORT);
 		serverConn = new ServerConnection(socket);
 
-		factory = new EffectCreator();
-		positive = factory.createEffect("positive", 10, 10);
-		negative = factory.createEffect("negative", 100, 100);
+		effectFactory = new EffectCreator();
+		/*
+		positive = effectFactory.createEffect("positive", 10, 10);
+		negative = effectFactory.createEffect("negative", 100, 100);
+		*/
 
 		platformFactory = StructureFactoryProducer.getPlatform();
 		obstacleFactory = StructureFactoryProducer.getObstacle();
+		/*
 		standardObstacle = obstacleFactory.getStructure("standard", 290, 200);
 		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
 		standardPlatform = platformFactory.getStructure("standard", 300, 300);
 		disappearingPlatform = platformFactory.getStructure("disappearing", 200, 300);
-
+		*/
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -119,14 +125,16 @@ public class SingletonController implements Runnable {
 		if(State.getState() != null) {
 			State.getState().render(g);
 		}
-
+		
+		/*
 		positive.render(g);
 		negative.render(g);
-
+		
 		standardObstacle.render(g);
 		disappearingObstacle.render(g);
 		standardPlatform.render(g);
 		disappearingPlatform.render(g);
+		*/
 
 		bs.show();
 		g.dispose();
@@ -198,5 +206,17 @@ public class SingletonController implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public EffectCreator getEffectFactory() {
+		return effectFactory;
+	}
+
+	public AbstractStructureFactory getPlatformFactory() {
+		return platformFactory;
+	}
+
+	public AbstractStructureFactory getObstacleFactory() {
+		return obstacleFactory;
 	}
 }
