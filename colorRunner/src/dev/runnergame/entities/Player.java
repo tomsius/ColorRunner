@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import dev.runnergame.SingletonController;
+import dev.runnergame.strategy.*;
 
 public class Player extends Entity {
 	public static final float DEFAULT_SPEED = 3.0f;
@@ -16,10 +17,11 @@ public class Player extends Entity {
 	private float enemyX = 0.0f, enemyY = 0.0f;
 	private int enemyWidth = 0, enemyHeight = 0;
 	private float speed;
+	private IMoveStrategy movementStrategy;
 	
 	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
 		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
-		this.controller = controller; // pakeisti i singleton
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 		speed = DEFAULT_SPEED;
 		out = new PrintWriter(socket.getOutputStream(), true);
 	}
@@ -33,21 +35,7 @@ public class Player extends Entity {
 	}
 	
 	private void getInput() {
-		xMove = 0;
-		yMove = 0;
-		
-		if(controller.getKeyManager().up) {
-			yMove = -speed;
-		}
-		if(controller.getKeyManager().down) {
-			yMove = speed;
-		}
-		if(controller.getKeyManager().left) {
-			xMove = -speed;
-		}
-		if(controller.getKeyManager().right) {
-			xMove = speed;
-		}
+		movementStrategy.move(this);
 	}
 
 	@Override
@@ -72,5 +60,9 @@ public class Player extends Entity {
 
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+
+	public void setMovementStrategy(IMoveStrategy movementStrategy) {
+		this.movementStrategy = movementStrategy;
 	}
 }

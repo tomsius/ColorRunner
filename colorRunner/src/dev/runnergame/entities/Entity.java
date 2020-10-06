@@ -56,4 +56,20 @@ public abstract class Entity {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public float getxMove() {
+		return xMove;
+	}
+
+	public void setxMove(float xMove) {
+		this.xMove = xMove;
+	}
+
+	public float getyMove() {
+		return yMove;
+	}
+
+	public void setyMove(float yMove) {
+		this.yMove = yMove;
+	}
 }
