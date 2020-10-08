@@ -46,7 +46,12 @@ public class Player extends Entity {
 		g.setColor(Color.red);
 		g.fillRect((int) enemyX, (int) enemyY, enemyWidth, enemyHeight);
 	}
-	
+
+	@Override
+	public void onCollision(Player p) {
+
+	}
+
 	public void updateEnemy(float x, float y, int width, int height) {
 		this.enemyX = x;
 		this.enemyY = y;

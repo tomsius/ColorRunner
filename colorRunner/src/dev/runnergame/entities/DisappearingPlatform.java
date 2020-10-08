@@ -9,7 +9,11 @@ public class DisappearingPlatform extends Platform {
     super(x, y, width, height);
   }
 
-  @Override
+    @Override
+    public void onCollision(Player p) {
+    }
+
+    @Override
   public void update() {
 
   }

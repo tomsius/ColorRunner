@@ -1,18 +1,19 @@
 package dev.runnergame;
 
+import dev.runnergame.Decorator.SlowingStructureDecorator;
 import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
-import dev.runnergame.entities.AccelerationPlatform;
-import dev.runnergame.entities.PlatformAccelerationEffect;
-import dev.runnergame.entities.Structure;
+import dev.runnergame.entities.*;
+
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dev.runnergame.display.Display;
-import dev.runnergame.entities.Effect;
 import dev.runnergame.factory.EffectCreator;
 import dev.runnergame.input.KeyManager;
 import dev.runnergame.states.GameState;
@@ -36,7 +37,6 @@ public class SingletonController implements Runnable {
 
 	//Effect factory
 	private EffectCreator effectFactory;
-
 	private Effect positive;
 	private Effect negative;
 	private PlatformAccelerationEffect platformAccelerationEffect1;
@@ -46,16 +46,7 @@ public class SingletonController implements Runnable {
 	private AbstractStructureFactory platformFactory;
 	private AbstractStructureFactory obstacleFactory;
 
-	private Structure standardObstacle;
-	private Structure disappearingObstacle;
-	private Structure standardPlatform;
-	private Structure disappearingPlatform;
-	private AccelerationPlatform accPlatform1;
-	private AccelerationPlatform accPlatform2;
-	private AccelerationPlatform accPlatform3;
-	private AccelerationPlatform acc4;
-	private AccelerationPlatform acc5;
-	private AccelerationPlatform acc6;
+	private List<Structure> allStructures;
 
 	public String title;
 	public int width, height;
@@ -87,6 +78,7 @@ public class SingletonController implements Runnable {
 		serverConn = new ServerConnection(socket);
 
 		effectFactory = new EffectCreator();
+		allStructures = new ArrayList<Structure>();
 
 		positive = effectFactory.createEffect("positive", 10, 10);
 		negative = effectFactory.createEffect("negative", 100, 100);
@@ -96,17 +88,18 @@ public class SingletonController implements Runnable {
 
 		platformFactory = StructureFactoryProducer.getPlatform();
 		obstacleFactory = StructureFactoryProducer.getObstacle();
-
-		standardObstacle = obstacleFactory.getStructure("standard", 290, 200);
-		disappearingObstacle = obstacleFactory.getStructure("disappearing", 390, 200);
-		standardPlatform = platformFactory.getStructure("standard", 300, 300);
-		disappearingPlatform = platformFactory.getStructure("disappearing", 200, 300);
-		accPlatform1 = new AccelerationPlatform(10,10,50 ,10,platformAccelerationEffect1);
-		accPlatform2 = new AccelerationPlatform(70,10,50 ,10,platformAccelerationEffect1);
-		accPlatform3 = new AccelerationPlatform(130,10,50 ,10,platformAccelerationEffect1);
-		acc4 = new AccelerationPlatform(190,10,50 ,10,platformAccelerationEffect1);
-		acc5 = new AccelerationPlatform(250,30,50 ,10,platformAccelerationEffect2);
-		acc6 = new AccelerationPlatform(290,30,50 ,10,platformAccelerationEffect2);
+		allStructures.add(obstacleFactory.getStructure("standard", 290, 200));
+		allStructures.add(obstacleFactory.getStructure("disappearing", 390, 200));
+		allStructures.add(platformFactory.getStructure("standard", 300, 300));
+		allStructures.add(platformFactory.getStructure("disappearing", 200, 300));
+		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 300, 150)));
+		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 120)));
+		allStructures.add(new AccelerationPlatform(10,10,50 ,10,platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(70,10,50 ,10,platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(130,10,50 ,10,platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(190,10,50 ,10,platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(250,30,50 ,10,platformAccelerationEffect2));
+		allStructures.add(new AccelerationPlatform(290,30,50 ,10,platformAccelerationEffect2));
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -122,8 +115,12 @@ public class SingletonController implements Runnable {
 
 		if(State.getState() != null) {
 			State.getState().update();
-			platformAccelerationEffect1.onCollision(gameState.getPlayer());
-			platformAccelerationEffect2.onCollision(gameState.getPlayer());
+			Player player = gameState.getPlayer();
+			platformAccelerationEffect1.checkCollision(player);
+			platformAccelerationEffect2.checkCollision(player);
+			for (Structure structure : allStructures) {
+				structure.checkCollision(player);
+			}
 		}
 	}
 
@@ -148,18 +145,9 @@ public class SingletonController implements Runnable {
 		negative.render(g);
 		platformAccelerationEffect1.render(g);
 		platformAccelerationEffect2.render(g);
-
-		standardObstacle.render(g);
-		disappearingObstacle.render(g);
-		standardPlatform.render(g);
-		disappearingPlatform.render(g);
-
-		accPlatform1.render(g);
-		accPlatform2.render(g);
-		accPlatform3.render(g);
-		acc4.render(g);
-		acc5.render(g);
-		acc6.render(g);
+		for (Structure structure : allStructures) {
+			structure.render(g);
+		}
 
 		bs.show();
 		g.dispose();

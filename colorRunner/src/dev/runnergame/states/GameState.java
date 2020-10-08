@@ -19,8 +19,8 @@ public class GameState extends State {
 	public GameState(Socket socket) throws IOException {
 		super();
 		player = new Player(controller, 100, 100, socket);
-		player.setMovementStrategy(run); // strategijos testavimas
-		//player.setMovementStrategy(fly);
+		//player.setMovementStrategy(run); // strategijos testavimas
+		player.setMovementStrategy(fly);
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		level = new GameLevel("colorRunner/res/levels/level1.txt");
 	}

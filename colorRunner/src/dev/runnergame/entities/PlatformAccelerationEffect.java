@@ -20,19 +20,8 @@ public class PlatformAccelerationEffect extends EffectSubject {
         isActivated = true;
     }
     public void onCollision(Player p){
-        if(
-            ((this.getY() <= p.getY() && this.getY()+this.getHeight() >= p.getY()) &&
-            (this.getX() <= p.getX() && this.getX() + this.getWidth() >= p.getX())) ||
-            ((this.getY() <= p.getY() && this.getY()+this.getHeight() >= p.getY()) &&
-            (this.getX() <= p.getX()+p.getWidth() && this.getX() + this.getWidth() >= p.getX()+p.getWidth())) ||
-            ((this.getY() <= p.getY()+p.getHeight() && this.getY()+this.getHeight() >= p.getY()+p.getHeight()) &&
-            (this.getX() <= p.getX()+p.getWidth() && this.getX() + this.getWidth() >= p.getX()+p.getWidth())) ||
-            ((this.getY() <= p.getY()+p.getHeight() && this.getY()+this.getHeight() >= p.getY()+p.getHeight()) &&
-            (this.getX() <= p.getX() && this.getX() + this.getWidth() >= p.getX()))
-        ){
-            changeState();
-            notifyAllObservers();
-        }
+        changeState();
+        notifyAllObservers();
     }
 
     @Override

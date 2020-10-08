@@ -12,18 +12,19 @@ public class AccelerationPlatform extends PlatformObserver {
         super(x, y, width, height);
         this.effect = effect;
         this.effect.attach(this);
+        isEffectActivated = false;
     }
-    //reikalinga Collision implementacija
-    /*public void onCollision(Player p){
-        if(isActivated){
-         p.setSpeed(p.getSpeed()*2);
-        }
-
-    }*/
 
     @Override
     public void updateObserver() {
         isEffectActivated = effect.isActivated();
+    }
+
+    @Override
+    public void onCollision(Player p) {
+        if(isEffectActivated){
+            p.setSpeed(Player.DEFAULT_SPEED + 1);
+        }
     }
 
     @Override

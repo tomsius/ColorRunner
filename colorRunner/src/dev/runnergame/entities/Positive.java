@@ -21,6 +21,11 @@ public class Positive extends Effect {
 	}
 
 	@Override
+	public void onCollision(Player p) {
+
+	}
+
+	@Override
 	public void modifySpeed() {
 
 	}

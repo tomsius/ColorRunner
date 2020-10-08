@@ -10,6 +10,11 @@ public class StandardObstacle extends Obstacle {
   }
 
   @Override
+  public void onCollision(Player p) {
+
+  }
+
+  @Override
   public void update() {
 
   }

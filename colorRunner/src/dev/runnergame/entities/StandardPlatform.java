@@ -22,6 +22,11 @@ public class StandardPlatform extends Platform {
   }
 
   @Override
+  public void onCollision(Player p) {
+
+  }
+
+  @Override
   public void modifySpeed() {
 
   }

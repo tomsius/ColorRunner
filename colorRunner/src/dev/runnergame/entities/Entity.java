@@ -1,6 +1,6 @@
 package dev.runnergame.entities;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public abstract class Entity {
 	public static final int DEFAULT_ENTITY_WIDTH = 20,
@@ -19,10 +19,22 @@ public abstract class Entity {
 	
 	public abstract void update();
 	public abstract void render(Graphics g);
+	public abstract void onCollision(Player p);
 	
 	public void move() {
 		x += xMove;
 		y += yMove;
+	}
+	public Rectangle getBounds(){
+		return new Rectangle((int)x, (int)y, width, height);
+	}
+
+	public void checkCollision(Player player){
+		Rectangle structureBounds = this.getBounds();
+		Rectangle playerBounds = player.getBounds();
+		if(structureBounds.intersects(playerBounds)){
+			onCollision(player);
+		}
 	}
 
 	public float getX() {

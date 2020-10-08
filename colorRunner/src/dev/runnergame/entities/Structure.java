@@ -1,6 +1,6 @@
 package dev.runnergame.entities;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public abstract class Structure extends Entity {
 

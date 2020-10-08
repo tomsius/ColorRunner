@@ -10,6 +10,10 @@ public class DisappearingObstacle extends Obstacle {
   }
 
   @Override
+  public void onCollision(Player p) {
+  }
+
+  @Override
   public void update() {
 
   }
