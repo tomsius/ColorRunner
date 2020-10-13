@@ -7,6 +7,8 @@ public class Run implements IMoveStrategy {
 
 	@Override
 	public void move(Player player) {
+		// Gali begti i sonus ir pasokti
+
 		SingletonController controller = SingletonController.getInstance("ColorRunner", 640, 360);
 		
 		player.setxMove(0);
@@ -17,6 +19,9 @@ public class Run implements IMoveStrategy {
 		}
 		if(controller.getKeyManager().right) {
 			player.setxMove(player.getSpeed());
+		}
+		if(controller.getKeyManager().up) {
+			// TODO: realizuoti pasokima
 		}
 	}
 

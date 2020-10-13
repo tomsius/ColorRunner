@@ -7,6 +7,8 @@ public class Fly implements IMoveStrategy {
 
 	@Override
 	public void move(Player player) {
+		// Gali judeti visomis kryptimis
+
 		SingletonController controller = SingletonController.getInstance("ColorRunner", 640, 360);
 		
 		player.setxMove(0);
