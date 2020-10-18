@@ -1,5 +1,6 @@
 package dev.runnergame.states;
 
+import dev.runnergame.facade.PlayerManagementFacade;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.net.Socket;
@@ -9,20 +10,18 @@ import dev.runnergame.levels.GameLevel;
 import dev.runnergame.strategy.*;
 
 public class GameState extends State {
+
+	private PlayerManagementFacade playerManagementFacade;
 	private Player player;
 	private GameLevel level;
 	
-	// Strategijos
-	private IMoveStrategy run = new Run();
-	private IMoveStrategy fly = new Fly();
-	
 	public GameState(Socket socket) throws IOException {
 		super();
-		player = new Player(controller, 100, 100, socket);
-		//player.setMovementStrategy(run); // strategijos testavimas
-		player.setMovementStrategy(fly);
+		playerManagementFacade = new PlayerManagementFacade(controller, socket);
+		player = playerManagementFacade.slidingPlayer();
+
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		level = new GameLevel("colorRunner/res/levels/level1.txt");
+		level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
 	}
 	
 	@Override
