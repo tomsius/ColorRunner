@@ -7,18 +7,20 @@ public class StandardPlatform extends Platform {
 
   public StandardPlatform(float x, float y, int width, int height) {
     super(x, y, width, height);
+    this.DEFAULT_SPEED = 1.2f;
     // TODO make platform moving or not
   }
 
   @Override
   public void update() {
-
+    move();
   }
 
   @Override
   public void render(Graphics g) {
     g.setColor(Color.ORANGE);
     g.fillRect((int) x, (int) y, width, height);
+
   }
 
   @Override

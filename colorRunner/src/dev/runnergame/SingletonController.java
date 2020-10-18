@@ -88,10 +88,10 @@ public class SingletonController implements Runnable {
 
 		platformFactory = StructureFactoryProducer.getPlatform();
 		obstacleFactory = StructureFactoryProducer.getObstacle();
-		allStructures.add(obstacleFactory.getStructure("standard", 290, 200));
-		allStructures.add(obstacleFactory.getStructure("disappearing", 390, 200));
-		allStructures.add(platformFactory.getStructure("standard", 300, 300));
-		allStructures.add(platformFactory.getStructure("disappearing", 200, 300));
+//		allStructures.add(obstacleFactory.getStructure("standard", 290, 200));
+//		allStructures.add(obstacleFactory.getStructure("disappearing", 390, 200));
+//		allStructures.add(platformFactory.getStructure("standard", 300, 300));
+//		allStructures.add(platformFactory.getStructure("disappearing", 200, 300));
 		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 250, 100)));
 		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 100)));
 		allStructures.add(new AccelerationPlatform(10,10,50 ,10,platformAccelerationEffect1));

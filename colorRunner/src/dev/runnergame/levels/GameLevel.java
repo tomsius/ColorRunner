@@ -1,5 +1,10 @@
 package dev.runnergame.levels;
 
+import dev.runnergame.command.MoveCommandInvoker;
+import dev.runnergame.command.MoveDownCommand;
+import dev.runnergame.command.MoveLeftCommand;
+import dev.runnergame.command.MoveRightCommand;
+import dev.runnergame.command.MoveUpCommand;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +32,17 @@ public class GameLevel {
 	}
 	
 	public void update() {
-		
+		for(int i = 0; i < size; i++){
+			if(objects.get(i) instanceof Structure) {
+				Structure structureItem = (Structure) objects.get(i);
+				MoveCommandInvoker moveCommandInvoker = new MoveCommandInvoker(new MoveUpCommand(structureItem),
+					new MoveRightCommand(structureItem),
+					new MoveDownCommand(structureItem),
+					new MoveLeftCommand(structureItem));
+				moveCommandInvoker.moveLeft();
+				structureItem.update();
+			}
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -37,13 +52,12 @@ public class GameLevel {
 			}
 			else if(objects.get(i) instanceof Structure) {
 				((Structure) objects.get(i)).render(g);
-			} 			
+			}
 		}
 	}
 	
 	private void loadWorld(String path) {
 		Utils.loadFileAsString(path);
-		
 		String[] tokens = Utils.getLine(0).split(" ");
 		size = Utils.parseInt(tokens[0]);		// objektu lygyje skaicius
 		objects = new ArrayList<Object>(size);

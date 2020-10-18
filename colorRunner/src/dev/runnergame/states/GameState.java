@@ -18,7 +18,7 @@ public class GameState extends State {
 	public GameState(Socket socket) throws IOException {
 		super();
 		playerManagementFacade = new PlayerManagementFacade(controller, socket);
-		player = playerManagementFacade.slidingPlayer();
+		player = playerManagementFacade.flyingPlayer();
 
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");

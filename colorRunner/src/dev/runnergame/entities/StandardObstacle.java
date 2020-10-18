@@ -16,7 +16,6 @@ public class StandardObstacle extends Obstacle {
 
   @Override
   public void update() {
-
   }
 
   @Override
