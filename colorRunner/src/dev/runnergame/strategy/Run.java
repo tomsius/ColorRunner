@@ -21,7 +21,7 @@ public class Run implements IMoveStrategy {
 			player.setxMove(player.getSpeed());
 		}
 		if(controller.getKeyManager().up) {
-			// TODO: realizuoti pasokima
+			player.speedY = -2;
 		}
 	}
 

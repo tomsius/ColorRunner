@@ -18,6 +18,9 @@ public class Player extends Entity {
 	private int enemyWidth = 0, enemyHeight = 0;
 	private float speed;
 	private IMoveStrategy movementStrategy;
+
+	// jump
+	public int speedY = 0;
 	
 	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
 		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
@@ -30,6 +33,16 @@ public class Player extends Entity {
 	public void update() {
 		getInput();
 		move();
+
+		if(getY() < 50) {
+			speedY = 2;
+		}
+
+		setY(getY() + speedY);
+
+		if(speedY == 2 && getY() == 100) {
+			speedY = 0;
+		}
 		
 		out.println("coordinates " + x + " " + y + " " + width + " " + height);
 	}

@@ -18,10 +18,12 @@ public class GameState extends State {
 	public GameState(Socket socket) throws IOException {
 		super();
 		playerManagementFacade = new PlayerManagementFacade(controller, socket);
-		player = playerManagementFacade.slidingPlayer();
+		//player = playerManagementFacade.slidingPlayer();
+		player = playerManagementFacade.runningPlayer();
 
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
+		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
+		level = new GameLevel("colorRunner/res/levels/level1.txt");
 	}
 	
 	@Override
