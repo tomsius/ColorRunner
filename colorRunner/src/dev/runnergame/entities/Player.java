@@ -12,8 +12,10 @@ import dev.runnergame.strategy.*;
 public class Player extends Entity {
 	public static final float DEFAULT_SPEED = 3.0f;
 	
-	private SingletonController controller;
-	private PrintWriter out;
+	private final SingletonController controller;
+	private final PrintWriter out;
+	private final float startX;
+	private final float startY;
 	private float enemyX = 0.0f, enemyY = 0.0f;
 	private int enemyWidth = 0, enemyHeight = 0;
 	private float speed;
@@ -22,11 +24,44 @@ public class Player extends Entity {
 	// jump
 	public int speedY = 0;
 	
-	public Player(SingletonController controller, float x, float y, Socket socket) throws IOException {
-		super(x, y, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
-		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
-		speed = DEFAULT_SPEED;
-		out = new PrintWriter(socket.getOutputStream(), true);
+	public Player(Builder builder) throws IOException {
+		super(builder.startX, builder.startY, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
+		this.startX = builder.startX;
+		this.startY = builder.startY;
+		this.controller = builder.controller;
+		this.speed = DEFAULT_SPEED;
+		this.out = builder.out;
+	}
+	
+	public static class Builder {
+		private SingletonController controller;
+		private PrintWriter out;
+		private float startX = 0;
+		private float startY = 0;
+		
+		public Builder setController() {
+			this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
+			return this;
+		}
+		
+		public Builder setOutput(Socket socket) throws IOException {
+			this.out = new PrintWriter(socket.getOutputStream(), true);
+			return this;
+		}
+		
+		public Builder setX(float x) {
+			this.startX = x;
+			return this;
+		}
+		
+		public Builder setY(float y) {
+			this.startY = y;
+			return this;
+		}
+		
+		public Player build() throws IOException {
+			return new Player(this);
+		}
 	}
 
 	@Override

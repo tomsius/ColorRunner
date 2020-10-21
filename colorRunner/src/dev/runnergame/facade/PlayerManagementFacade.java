@@ -15,8 +15,8 @@ import java.net.Socket;
 public class PlayerManagementFacade {
 
   private Player player;
-  private SingletonController controller;
-  private PrintWriter out;
+  //private SingletonController controller;
+  //private PrintWriter out;
   Socket socket;
 
   // Strategijos
@@ -26,34 +26,34 @@ public class PlayerManagementFacade {
   private IMoveStrategy slide = new Slide();
 
   public PlayerManagementFacade(SingletonController controller, Socket socket) throws IOException {
-    this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
-    this.socket = socket;
-    out = new PrintWriter(socket.getOutputStream(), true);
+    //this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
+    //out = new PrintWriter(socket.getOutputStream(), true);
+	this.socket = socket;
   }
 
   public Player flyingPlayer() throws IOException {
-    player = new Player(controller, 100, 100, socket);
+    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
     player.setMovementStrategy(fly);
 
-		return player;
+	return player;
   }
 
   public Player runningPlayer() throws IOException {
-    player = new Player(controller, 100, 100, socket);
+    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
     player.setMovementStrategy(run);
 
     return player;
   }
 
   public Player stunnedPlayer() throws IOException {
-    player = new Player(controller, 100, 100, socket);
+    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
     player.setMovementStrategy(stunned);
 
     return player;
   }
 
   public Player slidingPlayer() throws IOException {
-    player = new Player(controller, 100, 100, socket);
+    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
     player.setMovementStrategy(slide);
 
     return player;
