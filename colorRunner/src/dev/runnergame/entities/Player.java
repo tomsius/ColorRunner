@@ -24,37 +24,37 @@ public class Player extends Entity {
 	// jump
 	public int speedY = 0;
 	
-	public Player(Builder builder) throws IOException {
-		super(builder.startX, builder.startY, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
-		this.startX = builder.startX;
-		this.startY = builder.startY;
-		this.controller = builder.controller;
+	public Player(PlayerBuilder playerBuilder) throws IOException {
+		super(playerBuilder.startX, playerBuilder.startY, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
+		this.startX = playerBuilder.startX;
+		this.startY = playerBuilder.startY;
+		this.controller = playerBuilder.controller;
 		this.speed = DEFAULT_SPEED;
-		this.out = builder.out;
+		this.out = playerBuilder.out;
 	}
 	
-	public static class Builder {
+	public static class PlayerBuilder {
 		private SingletonController controller;
 		private PrintWriter out;
 		private float startX = 0;
 		private float startY = 0;
 		
-		public Builder setController() {
+		public PlayerBuilder setController() {
 			this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 			return this;
 		}
 		
-		public Builder setOutput(Socket socket) throws IOException {
+		public PlayerBuilder setOutput(Socket socket) throws IOException {
 			this.out = new PrintWriter(socket.getOutputStream(), true);
 			return this;
 		}
 		
-		public Builder setX(float x) {
+		public PlayerBuilder setX(float x) {
 			this.startX = x;
 			return this;
 		}
 		
-		public Builder setY(float y) {
+		public PlayerBuilder setY(float y) {
 			this.startY = y;
 			return this;
 		}
