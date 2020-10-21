@@ -1,5 +1,8 @@
 package dev.runnergame.states;
 
+import dev.runnergame.entities.FlyEffect;
+import dev.runnergame.entities.SlideEffect;
+import dev.runnergame.entities.StunEffect;
 import dev.runnergame.facade.PlayerManagementFacade;
 import java.awt.Graphics;
 import java.io.IOException;
@@ -18,11 +21,11 @@ public class GameState extends State {
 	public GameState(Socket socket) throws IOException {
 		super();
 		playerManagementFacade = new PlayerManagementFacade(controller, socket);
-		player = playerManagementFacade.flyingPlayer();
-
+		//player = playerManagementFacade.flyingPlayer();
+		player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
-//		level = new GameLevel("colorRunner/res/levels/level1.txt");
+		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
+		level = new GameLevel("colorRunner/res/levels/level1.txt");
 	}
 	
 	@Override
@@ -39,5 +42,28 @@ public class GameState extends State {
 	
 	public Player getPlayer() {
 		return player;
+	}
+
+	public GameLevel getLevel() {
+		return level;
+	}
+
+	public void setPlayerStrategy(String strategy) throws IOException {
+		switch(strategy) {
+			case "slide":
+				player = playerManagementFacade.slidingPlayer();
+				break;
+			case "fly":
+				player = playerManagementFacade.flyingPlayer();
+				break;
+			case "stun":
+				player = playerManagementFacade.stunnedPlayer();
+				break;
+			case "run":
+				player = playerManagementFacade.runningPlayer();
+				break;
+			default:
+				break;
+		}
 	}
 }

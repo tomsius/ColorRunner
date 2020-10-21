@@ -37,8 +37,8 @@ public class SingletonController implements Runnable {
 
 	//Effect factory
 	private EffectCreator effectFactory;
-	private Effect positive;
-	private Effect negative;
+	private List<Effect> effectList;
+
 	private PlatformAccelerationEffect platformAccelerationEffect1;
 	private PlatformAccelerationEffect platformAccelerationEffect2;
 
@@ -80,8 +80,8 @@ public class SingletonController implements Runnable {
 		effectFactory = new EffectCreator();
 		allStructures = new ArrayList<Structure>();
 
-		positive = effectFactory.createEffect("positive", 10, 10);
-		negative = effectFactory.createEffect("negative", 100, 100);
+		//positive = effectFactory.createEffect("positive", 10, 10);
+		//negative = effectFactory.createEffect("negative", 100, 100);
 
 		platformAccelerationEffect1 = new PlatformAccelerationEffect(200,200);
 		platformAccelerationEffect2 = new PlatformAccelerationEffect(500,200);
@@ -107,6 +107,8 @@ public class SingletonController implements Runnable {
 		menuState = new MenuState();
 		State.setState(gameState);
 
+		effectList = gameState.getLevel().getLevelEffects();
+
 		new Thread(serverConn).start();
 	}
 
@@ -121,6 +123,14 @@ public class SingletonController implements Runnable {
 			for (Structure structure : allStructures) {
 				structure.checkCollision(player);
 			}
+
+			for (int i = 0; i < effectList.size(); i++) {
+				if (effectList.get(i).checkCollision(player, i)) {
+					effectList.remove(i);
+					i--;
+				}
+			}
+
 		}
 	}
 
@@ -141,8 +151,8 @@ public class SingletonController implements Runnable {
 		}
 		
 
-		positive.render(g);
-		negative.render(g);
+		//.render(g);
+		//negative.render(g);
 		platformAccelerationEffect1.render(g);
 		platformAccelerationEffect2.render(g);
 		for (Structure structure : allStructures) {

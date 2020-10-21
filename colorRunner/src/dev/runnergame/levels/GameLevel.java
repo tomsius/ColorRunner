@@ -72,11 +72,14 @@ public class GameLevel {
 				
 				// efektu kurimas
 				if(tokens[0].equals("effect")) {
-					if(tokens[1].equals("positive")) {
-						objects.add(effectFactory.createEffect("positive", Utils.parseFloat(tokens[2]), Utils.parseFloat(tokens[3])));
+					if(tokens[1].equals("fly")) {
+						objects.add(effectFactory.createEffect("fly", Utils.parseFloat(tokens[2]), Utils.parseFloat(tokens[3])));
 					}
-					else if(tokens[1].equals("negative")) {
-						objects.add(effectFactory.createEffect("negative", Utils.parseFloat(tokens[2]), Utils.parseFloat(tokens[3])));
+					else if(tokens[1].equals("slide")) {
+						objects.add(effectFactory.createEffect("slide", Utils.parseFloat(tokens[2]), Utils.parseFloat(tokens[3])));
+					}
+					else if(tokens[1].equals("stun")) {
+						objects.add(effectFactory.createEffect("stun", Utils.parseFloat(tokens[2]), Utils.parseFloat(tokens[3])));
 					}
 					else {
 						continue;
@@ -113,5 +116,17 @@ public class GameLevel {
 				}
 			}
 		}
+	}
+
+	public List<Effect> getLevelEffects() {
+		List<Effect> effectList = new ArrayList<Effect>();
+
+		for(int i = 0; i < size; i++) {
+			if(objects.get(i) instanceof Effect) {
+				effectList.add((Effect) objects.get(i));
+			}
+		}
+
+		return effectList;
 	}
 }

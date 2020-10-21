@@ -8,6 +8,8 @@ public class Stunned implements IMoveStrategy {
 	@Override
 	public void move(Player player) {
 		// Negali judeti
+		player.setxMove(0);
+		player.setyMove(0);
 	}
 
 }

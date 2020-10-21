@@ -37,6 +37,16 @@ public abstract class Entity {
 		}
 	}
 
+	public boolean checkCollision(Player player, int id){
+		Rectangle structureBounds = this.getBounds();
+		Rectangle playerBounds = player.getBounds();
+		if(structureBounds.intersects(playerBounds)){
+			onCollision(player);
+			return true;
+		}
+		return false;
+	}
+
 	public float getX() {
 		return x;
 	}

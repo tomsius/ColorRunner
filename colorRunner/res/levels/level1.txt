@@ -1,7 +1,8 @@
-6
+7
 100 100
-effect positive 10 10
-effect negative 100 10
+effect fly 50 100
+effect slide 150 100
+effect stun 200 100
 obstacle standard 290 200
 obstacle disappearing 390 200
 platform standard 300 300

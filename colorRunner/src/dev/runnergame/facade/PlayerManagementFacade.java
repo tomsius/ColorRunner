@@ -32,28 +32,40 @@ public class PlayerManagementFacade {
   }
 
   public Player flyingPlayer() throws IOException {
-    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    if(player == null) {
+      player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    }
+
     player.setMovementStrategy(fly);
 
 	return player;
   }
 
   public Player runningPlayer() throws IOException {
-    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    if(player == null) {
+      player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    }
+
     player.setMovementStrategy(run);
 
     return player;
   }
 
   public Player stunnedPlayer() throws IOException {
-    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    if(player == null) {
+      player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    }
+
     player.setMovementStrategy(stunned);
 
     return player;
   }
 
   public Player slidingPlayer() throws IOException {
-    player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    if(player == null) {
+      player = new Player.Builder().setController().setX(100).setY(100).setOutput(socket).build();
+    }
+
     player.setMovementStrategy(slide);
 
     return player;
