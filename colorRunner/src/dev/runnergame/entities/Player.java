@@ -23,6 +23,8 @@ public class Player extends Entity {
 
 	// jump
 	public int speedY = 0;
+	public int jumpY = 0;
+	public boolean isJumping = false;
 	
 	public Player(PlayerBuilder playerBuilder) throws IOException {
 		super(playerBuilder.startX, playerBuilder.startY, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
@@ -70,14 +72,29 @@ public class Player extends Entity {
 		move();
 		controller.getGameCamera().centerOnEntity(this);
 
-		if(getY() < 50) {
+		if(getX() < 0) {
+			setX(0);
+		}
+		if(getX() > 200) {
+			setX(200);
+			System.out.println("Laimejo / pakeisti apribojima Player.update() metode");
+		}
+		if(getY() < 0) {
+			setY(0);
+		}
+		if(getY() > 300) {
+			setY(300);
+		}
+
+		if(getY() < jumpY) {
 			speedY = 2;
 		}
 
 		setY(getY() + speedY);
 
-		if(speedY == 2 && getY() == 100) {
+		if(speedY == 2 && getY() == 300) {
 			speedY = 0;
+			isJumping = false;
 		}
 		
 		out.println("coordinates " + x + " " + y + " " + width + " " + height);

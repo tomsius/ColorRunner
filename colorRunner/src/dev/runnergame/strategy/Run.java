@@ -20,8 +20,10 @@ public class Run implements IMoveStrategy {
 		if(controller.getKeyManager().right) {
 			player.setxMove(player.getSpeed());
 		}
-		if(controller.getKeyManager().up) {
+		if(controller.getKeyManager().up && !player.isJumping) {
 			player.speedY = -2;
+			player.jumpY = (int) player.getY() - 50;
+			player.isJumping = true;
 		}
 	}
 
