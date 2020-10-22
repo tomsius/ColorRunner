@@ -17,8 +17,8 @@ public class SlowingStructureDecorator extends StructureDecorator {
     }
 
     @Override
-    public void render(Graphics g) {
-        decoratedStructure.render(g);
+    public void render(Graphics g, int newX) {
+        decoratedStructure.render(g, newX);
     }
 
     @Override

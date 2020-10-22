@@ -17,9 +17,9 @@ public class StandardPlatform extends Platform {
   }
 
   @Override
-  public void render(Graphics g) {
+  public void render(Graphics g, int newX) {
     g.setColor(Color.ORANGE);
-    g.fillRect((int) x, (int) y, width, height);
+    g.fillRect(newX, (int) y, width, height);
 
   }
 

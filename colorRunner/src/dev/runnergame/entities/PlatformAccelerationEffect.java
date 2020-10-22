@@ -30,9 +30,9 @@ public class PlatformAccelerationEffect extends EffectSubject {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics g, int newX) {
         g.setColor(Color.BLACK);
-        g.fillRect((int) x, (int) y, width, height);
+        g.fillRect(newX, (int) y, width, height);
     }
 
     @Override

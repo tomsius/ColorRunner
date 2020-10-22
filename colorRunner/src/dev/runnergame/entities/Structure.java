@@ -17,7 +17,7 @@ public abstract class Structure extends Entity {
   }
 
   public abstract void update();
-  public abstract void render(Graphics g);
+  public abstract void render(Graphics g, int newX);
   public abstract void modifySpeed();
 
   public void moveRight(){

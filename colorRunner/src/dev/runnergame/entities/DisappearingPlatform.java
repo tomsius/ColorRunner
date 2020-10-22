@@ -19,9 +19,9 @@ public class DisappearingPlatform extends Platform {
   }
 
   @Override
-  public void render(Graphics g) {
+  public void render(Graphics g, int newX) {
     g.setColor(Color.MAGENTA);
-    g.fillRect((int) x, (int) y, width, height);
+    g.fillRect(newX, (int) y, width, height);
   }
 
   @Override

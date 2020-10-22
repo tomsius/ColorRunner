@@ -1,5 +1,7 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.SingletonController;
+
 import java.awt.*;
 
 public abstract class Entity {
@@ -9,16 +11,18 @@ public abstract class Entity {
 	protected float x, y;
 	protected int width, height;
 	protected float xMove, yMove;
+	protected SingletonController controller;
 	
 	public Entity(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 	}
 	
 	public abstract void update();
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics g, int newX);
 	public abstract void onCollision(Player p);
 	
 	public void move() {

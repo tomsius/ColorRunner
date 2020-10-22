@@ -12,7 +12,7 @@ import dev.runnergame.strategy.*;
 public class Player extends Entity {
 	public static final float DEFAULT_SPEED = 3.0f;
 	
-	private final SingletonController controller;
+	//private final SingletonController controller;
 	private final PrintWriter out;
 	private final float startX;
 	private final float startY;
@@ -28,7 +28,7 @@ public class Player extends Entity {
 		super(playerBuilder.startX, playerBuilder.startY, Entity.DEFAULT_ENTITY_WIDTH, Entity.DEFAULT_ENTITY_HEIGHT);
 		this.startX = playerBuilder.startX;
 		this.startY = playerBuilder.startY;
-		this.controller = playerBuilder.controller;
+		//this.controller = playerBuilder.controller;
 		this.speed = DEFAULT_SPEED;
 		this.out = playerBuilder.out;
 	}
@@ -68,6 +68,7 @@ public class Player extends Entity {
 	public void update() {
 		getInput();
 		move();
+		controller.getGameCamera().centerOnEntity(this);
 
 		if(getY() < 50) {
 			speedY = 2;
@@ -87,12 +88,12 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, int newX) {
 		g.setColor(Color.green);
-		g.fillRect((int) x, (int) y, width, height);
+		g.fillRect((int) (x - controller.getGameCamera().getxOffset()), (int) y, width, height);
 		
 		g.setColor(Color.red);
-		g.fillRect((int) enemyX, (int) enemyY, enemyWidth, enemyHeight);
+		g.fillRect((int) (enemyX - controller.getGameCamera().getxOffset()), (int) enemyY, enemyWidth, enemyHeight);
 	}
 
 	@Override

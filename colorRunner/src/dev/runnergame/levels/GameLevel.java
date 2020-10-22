@@ -17,6 +17,7 @@ import dev.runnergame.factory.EffectCreator;
 import dev.runnergame.utils.Utils;
 
 public class GameLevel {
+	private SingletonController controller;
 	private int size;
 	private EffectCreator effectFactory;
 	private AbstractStructureFactory platformFactory;
@@ -25,9 +26,10 @@ public class GameLevel {
 	private float spawnX, spawnY;
 	
 	public GameLevel(String path) {
-		effectFactory = SingletonController.getInstance("ColorRunner", 640, 360).getEffectFactory();
-		platformFactory = SingletonController.getInstance("ColorRunner", 640, 360).getPlatformFactory();
-		obstacleFactory = SingletonController.getInstance("ColorRunner", 640, 360).getObstacleFactory();
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
+		effectFactory = controller.getEffectFactory();
+		platformFactory = controller.getPlatformFactory();
+		obstacleFactory = controller.getObstacleFactory();
 		loadWorld(path);
 	}
 	
@@ -48,10 +50,12 @@ public class GameLevel {
 	public void render(Graphics g) {
 		for(int i = 0; i < size; i++) {
 			if(objects.get(i) instanceof Effect) {
-				((Effect) objects.get(i)).render(g);
+				float x = ((Effect) objects.get(i)).getX();
+				((Effect) objects.get(i)).render(g, (int) (x - controller.getGameCamera().getxOffset()));
 			}
 			else if(objects.get(i) instanceof Structure) {
-				((Structure) objects.get(i)).render(g);
+				float x = ((Structure) objects.get(i)).getX();
+				((Structure) objects.get(i)).render(g, (int) (x - controller.getGameCamera().getxOffset()));
 			}
 		}
 	}

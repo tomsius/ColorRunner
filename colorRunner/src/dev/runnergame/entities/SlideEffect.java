@@ -20,9 +20,9 @@ public class SlideEffect extends Effect {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, int newX) {
 		g.setColor(Color.CYAN);
-		g.fillRect((int) x, (int) y, width, height);
+		g.fillRect((int) newX, (int) y, width, height);
 	}
 
 	@Override

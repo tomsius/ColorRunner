@@ -3,6 +3,7 @@ package dev.runnergame;
 import dev.runnergame.Decorator.SlowingStructureDecorator;
 import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
+import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
 import java.awt.Graphics;
@@ -49,7 +50,7 @@ public class SingletonController implements Runnable {
 	private List<Structure> allStructures;
 
 	public String title;
-	public int width, height;
+	private int width, height;
 
 	// States
 	private State gameState;
@@ -57,6 +58,9 @@ public class SingletonController implements Runnable {
 
 	// Input
 	private KeyManager keyManager;
+
+	//Camera
+	private GameCamera gameCamera;
 
 	private SingletonController(String title, int width, int height) {
 		this.title = title;
@@ -103,6 +107,9 @@ public class SingletonController implements Runnable {
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
+
+		gameCamera = new GameCamera(0);
+
 		gameState = new GameState(socket);
 		menuState = new MenuState();
 		State.setState(gameState);
@@ -153,10 +160,10 @@ public class SingletonController implements Runnable {
 
 		//.render(g);
 		//negative.render(g);
-		platformAccelerationEffect1.render(g);
-		platformAccelerationEffect2.render(g);
+		platformAccelerationEffect1.render(g, (int) (platformAccelerationEffect1.getX() - gameCamera.getxOffset()));
+		platformAccelerationEffect2.render(g, (int) (platformAccelerationEffect2.getX() - gameCamera.getxOffset()));
 		for (Structure structure : allStructures) {
-			structure.render(g);
+			structure.render(g, (int) (structure.getX()-gameCamera.getxOffset()));
 		}
 
 		bs.show();
@@ -203,6 +210,12 @@ public class SingletonController implements Runnable {
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}
+
+	public GameCamera getGameCamera() { return gameCamera; }
+
+	public int getWidth() { return width; }
+
+	public int getHeight() { return height; }
 
 	public void drawOpponent(String x, String y, String width, String height) {
 		gameState.getPlayer().updateEnemy(Float.parseFloat(x), Float.parseFloat(y), Integer.parseInt(width), Integer.parseInt(height));
