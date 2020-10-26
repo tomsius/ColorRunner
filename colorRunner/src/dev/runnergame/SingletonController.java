@@ -1,6 +1,9 @@
 package dev.runnergame;
 
+import dev.runnergame.Decorator.CrackedStructureDecorator;
+import dev.runnergame.Decorator.HotStructureDecorator;
 import dev.runnergame.Decorator.SlowingStructureDecorator;
+import dev.runnergame.Decorator.StructureDecorator;
 import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
 import dev.runnergame.bridge.Stone;
@@ -99,8 +102,14 @@ public class SingletonController implements Runnable {
 //		allStructures.add(obstacleFactory.getStructure("disappearing", 390, 200));
 //		allStructures.add(platformFactory.getStructure("standard", 300, 300));
 //		allStructures.add(platformFactory.getStructure("disappearing", 200, 300));
-		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 250, 100),new Stone()));
-		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 100), new Stone()));
+		// Trijų sluoksnių dekoratoriaus pavyzydys
+		Structure platform = platformFactory.getStructure("standard",10, 50);
+		StructureDecorator slowingPlatform = new SlowingStructureDecorator(platform);
+		StructureDecorator hotSlowingPlatform = new HotStructureDecorator(slowingPlatform);
+		StructureDecorator crackedHotSlowingPlatform = new CrackedStructureDecorator(hotSlowingPlatform);
+		allStructures.add(crackedHotSlowingPlatform);
+		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 250, 100)));
+		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 100)));
 		allStructures.add(new AccelerationPlatform(10,10,50 ,10, new Stone(),platformAccelerationEffect1));
 		allStructures.add(new AccelerationPlatform(70,10,50 ,10, new Stone(),platformAccelerationEffect1));
 		allStructures.add(new AccelerationPlatform(130,10,50 ,10, new Stone(),platformAccelerationEffect1));

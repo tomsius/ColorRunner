@@ -6,9 +6,8 @@ import dev.runnergame.entities.Structure;
 
 import java.awt.*;
 
-public class SlowingStructureDecorator extends StructureDecorator {
-
-    public SlowingStructureDecorator(Structure decoratedStructure) {
+public class CrackedStructureDecorator extends StructureDecorator{
+    public CrackedStructureDecorator(Structure decoratedStructure) {
         super(
                 decoratedStructure.getX(),
                 decoratedStructure.getY(),
@@ -26,14 +25,14 @@ public class SlowingStructureDecorator extends StructureDecorator {
 
     @Override
     public void render(Graphics g, int newX) {
-        decoratedStructure.render(g, newX);
+        decoratedStructure.render(g,newX);
+        g.setColor(Color.BLACK);
+        g.drawLine((int)newX, (int)y, (int)newX + width, (int)y+ height);
     }
 
     @Override
     public void onCollision(Player p) {
         decoratedStructure.onCollision(p);
-        p.setSpeed(Player.DEFAULT_SPEED - 1);
-        System.out.println("Collided");
     }
 
     @Override

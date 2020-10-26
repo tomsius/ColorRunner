@@ -25,6 +25,9 @@ public abstract class Structure extends Entity {
   public abstract void render(Graphics g, int newX);
   public abstract void modifySpeed();
 
+  public IStructureType getType(){
+    return  this.type;
+  }
   public void moveRight(){
     this.setxMove(DEFAULT_SPEED);
   }
