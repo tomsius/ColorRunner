@@ -1,8 +1,8 @@
 7
 100 100
-effect fly 50 100
-effect slide 150 100
-effect stun 200 100
+effect fly 200 305
+effect slide 400 305
+effect stun 600 305
 obstacle standard 290 200
 obstacle disappearing 390 200
 platform standard 300 300

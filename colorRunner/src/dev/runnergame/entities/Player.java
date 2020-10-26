@@ -75,8 +75,8 @@ public class Player extends Entity {
 		if(getX() < 0) {
 			setX(0);
 		}
-		if(getX() > 200) {
-			setX(200);
+		if(getX() > 640) {
+			setX(640);
 			System.out.println("Laimejo / pakeisti apribojima Player.update() metode");
 		}
 		if(getY() < 0) {
