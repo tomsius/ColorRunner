@@ -3,6 +3,8 @@ package dev.runnergame;
 import dev.runnergame.Decorator.SlowingStructureDecorator;
 import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
+import dev.runnergame.bridge.Stone;
+import dev.runnergame.bridge.Wood;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
@@ -96,14 +98,14 @@ public class SingletonController implements Runnable {
 //		allStructures.add(obstacleFactory.getStructure("disappearing", 390, 200));
 //		allStructures.add(platformFactory.getStructure("standard", 300, 300));
 //		allStructures.add(platformFactory.getStructure("disappearing", 200, 300));
-		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 250, 100)));
-		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 100)));
-		allStructures.add(new AccelerationPlatform(10,10,50 ,10,platformAccelerationEffect1));
-		allStructures.add(new AccelerationPlatform(70,10,50 ,10,platformAccelerationEffect1));
-		allStructures.add(new AccelerationPlatform(130,10,50 ,10,platformAccelerationEffect1));
-		allStructures.add(new AccelerationPlatform(190,10,50 ,10,platformAccelerationEffect1));
-		allStructures.add(new AccelerationPlatform(250,30,50 ,10,platformAccelerationEffect2));
-		allStructures.add(new AccelerationPlatform(290,30,50 ,10,platformAccelerationEffect2));
+		allStructures.add(new SlowingStructureDecorator(obstacleFactory.getStructure("standard", 250, 100),new Stone()));
+		allStructures.add(new SlowingStructureDecorator(platformFactory.getStructure("standard",300, 100), new Stone()));
+		allStructures.add(new AccelerationPlatform(10,10,50 ,10, new Stone(),platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(70,10,50 ,10, new Stone(),platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(130,10,50 ,10, new Stone(),platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(190,10,50 ,10, new Wood(),platformAccelerationEffect1));
+		allStructures.add(new AccelerationPlatform(250,30,50 ,10, new Wood(),platformAccelerationEffect2));
+		allStructures.add(new AccelerationPlatform(290,30,50 ,10, new Wood(),platformAccelerationEffect2));
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
