@@ -1,5 +1,7 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.bridge.IStructureType;
+
 import java.awt.*;
 
 public abstract class Structure extends Entity {
@@ -7,13 +9,16 @@ public abstract class Structure extends Entity {
   public static final int DEFAULT_STRUCTURE_WIDTH = 100;
   public static final int DEFAULT_STRUCTURE_HEIGHT = 10;
   public float DEFAULT_SPEED = 1.0f;
+  protected IStructureType type;
 
-  public Structure(float x, float y){
+  public Structure(float x, float y, IStructureType type){
     super(x, y, DEFAULT_STRUCTURE_WIDTH, DEFAULT_STRUCTURE_HEIGHT);
+    this.type = type;
   }
 
-  public Structure(float x, float y, int width, int height){
+  public Structure(float x, float y, int width, int height, IStructureType type){
     super(x, y, width, height);
+    this.type = type;
   }
 
   public abstract void update();

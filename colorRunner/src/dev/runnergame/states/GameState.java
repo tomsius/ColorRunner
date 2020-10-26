@@ -25,8 +25,8 @@ public class GameState extends State {
 		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 
 		playerManagementFacade = new PlayerManagementFacade(controller, socket);
-		//player = playerManagementFacade.flyingPlayer();
-		player = playerManagementFacade.runningPlayer();
+		player = playerManagementFacade.flyingPlayer();
+		//player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
 		level = new GameLevel("colorRunner/res/levels/level1.txt");
