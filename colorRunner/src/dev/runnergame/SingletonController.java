@@ -6,7 +6,7 @@ import dev.runnergame.abstractFactory.StructureFactoryProducer;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.net.Socket;
@@ -51,6 +51,7 @@ public class SingletonController implements Runnable {
 
 	public String title;
 	private int width, height;
+	private Floor floor;
 
 	// States
 	private State gameState;
@@ -116,6 +117,8 @@ public class SingletonController implements Runnable {
 
 		effectList = gameState.getLevel().getLevelEffects();
 
+		floor = new Floor(0, 335, 640, 60, Color.PINK);
+
 		new Thread(serverConn).start();
 	}
 
@@ -165,6 +168,8 @@ public class SingletonController implements Runnable {
 		for (Structure structure : allStructures) {
 			structure.render(g, (int) (structure.getX()-gameCamera.getxOffset()));
 		}
+
+		floor.render(g);
 
 		bs.show();
 		g.dispose();
