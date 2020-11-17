@@ -14,9 +14,10 @@ import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.entities.Effect;
 import dev.runnergame.entities.Structure;
 import dev.runnergame.factory.EffectCreator;
+import dev.runnergame.template.GameWindowTemplate;
 import dev.runnergame.utils.Utils;
 
-public class GameLevel {
+public class GameLevel extends GameWindowTemplate {
 	private SingletonController controller;
 	private int size;
 	private EffectCreator effectFactory;
@@ -25,12 +26,12 @@ public class GameLevel {
 	private List<Object> objects;
 	private float spawnX, spawnY;
 	
-	public GameLevel(String path) {
+	public GameLevel() {
 		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 		effectFactory = controller.getEffectFactory();
 		platformFactory = controller.getPlatformFactory();
 		obstacleFactory = controller.getObstacleFactory();
-		loadWorld(path);
+		//loadWorld(path);
 	}
 	
 	public void update() {
@@ -59,17 +60,23 @@ public class GameLevel {
 			}
 		}
 	}
-	
-	private void loadWorld(String path) {
+
+	@Override
+	protected void initialize(String path) {
 		Utils.loadFileAsString(path);
 		String[] tokens = Utils.getLine(0).split(" ");
 		size = Utils.parseInt(tokens[0]);		// objektu lygyje skaicius
 		objects = new ArrayList<Object>(size);
-		
+
 		tokens = Utils.getLine(1).split(" ");
 		spawnX = Utils.parseFloat(tokens[0]);		// zaidejo x koordinate
 		spawnY = Utils.parseFloat(tokens[1]);		// zaidejo y koordinate
-		
+	}
+
+	@Override
+	protected void loadWorld() {
+		String[] tokens;
+
 		for(int i = 2; i < size + 2; i++) {
 			if(Utils.hasLinesLeft()) {
 				tokens = Utils.getLine(i).split(" ");

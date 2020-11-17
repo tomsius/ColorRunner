@@ -12,12 +12,13 @@ import java.net.Socket;
 import dev.runnergame.entities.Player;
 import dev.runnergame.levels.GameLevel;
 import dev.runnergame.strategy.*;
+import dev.runnergame.template.GameWindowTemplate;
 
 public class GameState extends State {
 
 	private PlayerManagementFacade playerManagementFacade;
 	private Player player;
-	private GameLevel level;
+	private GameWindowTemplate level;
 	private SingletonController controller;
 	
 	public GameState(Socket socket) throws IOException {
@@ -25,22 +26,23 @@ public class GameState extends State {
 		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 
 		playerManagementFacade = new PlayerManagementFacade(controller, socket);
-		player = playerManagementFacade.flyingPlayer();
-		//player = playerManagementFacade.runningPlayer();
+		//player = playerManagementFacade.flyingPlayer();
+		player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
-		level = new GameLevel("colorRunner/res/levels/level1.txt");
+		level = new GameLevel();
+		level.load("colorRunner/res/levels/level1.txt");
 	}
 	
 	@Override
 	public void update() {
-		level.update();
+		((GameLevel)level).update();
 		player.update();
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		level.render(g);;
+		((GameLevel)level).render(g);;
 		player.render(g, (int)player.getX());
 	}
 	
@@ -49,7 +51,7 @@ public class GameState extends State {
 	}
 
 	public GameLevel getLevel() {
-		return level;
+		return (GameLevel)level;
 	}
 
 	public void setPlayerStrategy(String strategy) throws IOException {
