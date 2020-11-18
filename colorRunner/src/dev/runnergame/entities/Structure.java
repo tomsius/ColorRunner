@@ -20,6 +20,10 @@ public abstract class Structure extends Entity {
     super(x, y, width, height);
     this.type = type;
   }
+  
+  public Structure(float x, float y) {
+	  super(x, y);
+  }
 
   public abstract void update();
   public abstract void render(Graphics g, int newX);
@@ -28,6 +32,7 @@ public abstract class Structure extends Entity {
   public IStructureType getType(){
     return  this.type;
   }
+  
   public void moveRight(){
     this.setxMove(DEFAULT_SPEED);
   }

@@ -16,7 +16,6 @@ public class Display {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		
 		createDisplay();		// sukurti langa
 	}
 	

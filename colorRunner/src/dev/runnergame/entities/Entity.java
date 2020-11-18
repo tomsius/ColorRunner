@@ -21,6 +21,15 @@ public abstract class Entity {
 		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
 	}
 	
+	public Entity(float x, float y) {
+		this.x = x;
+		this.y = y;
+		this.width = DEFAULT_ENTITY_WIDTH;
+		this.height = DEFAULT_ENTITY_HEIGHT;
+		this.controller = SingletonController.getInstance("ColorRunner", 640, 360);
+	}
+	
+	
 	public abstract void update();
 	public abstract void render(Graphics g, int newX);
 	public abstract void onCollision(Player p);

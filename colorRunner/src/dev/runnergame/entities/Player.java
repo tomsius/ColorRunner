@@ -136,4 +136,6 @@ public class Player extends Entity {
 	public void setMovementStrategy(IMoveStrategy movementStrategy) {
 		this.movementStrategy = movementStrategy;
 	}
+
+	public IMoveStrategy getMovementStrategy() { return this.movementStrategy;}
 }

@@ -31,7 +31,7 @@ public class SingletonController implements Runnable {
 	private volatile static SingletonController controller;
 
 	private static final String SERVER_IP = "127.0.0.1";
-	private static final int SERVER_PORT = 9090;
+	private static final int SERVER_PORT = 9091;
 	private Socket socket;
 	ServerConnection serverConn;
 
@@ -116,6 +116,8 @@ public class SingletonController implements Runnable {
 		allStructures.add(new AccelerationPlatform(190,10,50 ,10, new Wood(),platformAccelerationEffect1));
 		allStructures.add(new AccelerationPlatform(250,30,50 ,10, new Wood(),platformAccelerationEffect2));
 		allStructures.add(new AccelerationPlatform(290,30,50 ,10, new Wood(),platformAccelerationEffect2));
+		//Structure testAcc = new AccelerationEffectAdapter(new AccelerationPlatform(100, 10, 0, 0, new Stone(), platformAccelerationEffect1));
+		//allStructures.add(testAcc);
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);

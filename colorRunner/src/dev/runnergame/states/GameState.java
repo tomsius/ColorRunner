@@ -28,8 +28,8 @@ public class GameState extends State {
 		player = playerManagementFacade.flyingPlayer();
 		//player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
-		level = new GameLevel("colorRunner/res/levels/level1.txt");
+		level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
+		//level = new GameLevel("colorRunner/res/levels/level1.txt");
 	}
 	
 	@Override
@@ -40,7 +40,7 @@ public class GameState extends State {
 	
 	@Override
 	public void render(Graphics g) {
-		level.render(g);;
+		level.render(g);
 		player.render(g, (int)player.getX());
 	}
 	
