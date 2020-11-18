@@ -1,27 +1,28 @@
 package dev.runnergame.observer;
 
 import dev.runnergame.entities.Effect;
+import dev.runnergame.iterator.PlatformObserverList;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class EffectSubject extends Effect {
-    private List<PlatformObserver> observers = new ArrayList<PlatformObserver>();
-
+    private PlatformObserverList observers = new PlatformObserverList();
     public EffectSubject(float x, float y) {
         super(x, y);
     }
 
-    public void attach(PlatformObserver observer){
-        observers.add(observer);
-    }
+    public void attach(PlatformObserver observer){ observers.addObserver(observer); }
     public void detach(PlatformObserver observer){
-        observers.remove(observer);
+        observers.removeObserver(observer);
     }
     public void notifyAllObservers(){
-        for (PlatformObserver observer : observers) {
-            observer.updateObserver();
+        Iterator iter = observers.getIterator();
+        while(iter.hasNext()) {
+            PlatformObserver obs = (PlatformObserver) iter.next();
+            obs.updateObserver();
         }
     }
 }
