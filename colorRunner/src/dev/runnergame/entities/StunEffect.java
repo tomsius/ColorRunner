@@ -1,5 +1,6 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.flyweight.EffectColor;
 import dev.runnergame.states.State;
 
 import java.awt.*;
@@ -9,8 +10,8 @@ import java.util.TimerTask;
 
 public class StunEffect extends Effect {
 
-	public StunEffect(float x, float y) {
-		super(x, y);
+	public StunEffect(float x, float y, EffectColor ec) {
+		super(x, y, ec);
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class StunEffect extends Effect {
 
 	@Override
 	public void render(Graphics g, int newX) {
-		g.setColor(Color.RED);
+		g.setColor(color.getColor());
 		g.fillRect((int) newX, (int) y, width, height);
 	}
 
