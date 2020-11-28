@@ -29,9 +29,9 @@ public class GameState extends State {
 		//player = playerManagementFacade.flyingPlayer();
 		player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		//level = new GameLevel(System.getProperty("user.dir") + "/res/levels/level1.txt");
 		level = new GameLevel();
-		level.load("colorRunner/res/levels/level1.txt");
+//		level.load("colorRunner/res/levels/level1.txt");
+		level.load(System.getProperty("user.dir") + "/res/levels/level1.txt");
 	}
 	
 	@Override

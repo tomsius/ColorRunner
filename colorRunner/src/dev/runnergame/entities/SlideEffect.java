@@ -52,4 +52,19 @@ public class SlideEffect extends Effect {
 	public void modifySpeed() {
 
 	}
+
+	@Override
+	public void displayScore() {
+		System.out.println("Slide effect: " + score);
+	}
+
+	@Override
+	public void increaseScore() {
+		score++;
+	}
+
+	@Override
+	public int getScore() {
+		return score;
+	}
 }
