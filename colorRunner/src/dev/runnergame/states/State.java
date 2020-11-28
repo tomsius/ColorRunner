@@ -1,5 +1,6 @@
 package dev.runnergame.states;
 
+import dev.runnergame.proxy.IGameLevel;
 import java.awt.Graphics;
 import java.io.IOException;
 
@@ -27,6 +28,6 @@ public abstract class State {
 	public abstract void update();
 	public abstract void render(Graphics g);
 	public abstract Player getPlayer();
-	public abstract GameLevel getLevel();
+	public abstract IGameLevel getLevel();
 	public abstract void setPlayerStrategy(String strategy) throws IOException;
 }

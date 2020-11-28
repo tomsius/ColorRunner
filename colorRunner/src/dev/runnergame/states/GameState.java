@@ -5,6 +5,8 @@ import dev.runnergame.entities.FlyEffect;
 import dev.runnergame.entities.SlideEffect;
 import dev.runnergame.entities.StunEffect;
 import dev.runnergame.facade.PlayerManagementFacade;
+import dev.runnergame.proxy.IGameLevel;
+import dev.runnergame.proxy.LazyGameLevelProxy;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.net.Socket;
@@ -18,7 +20,7 @@ public class GameState extends State {
 
 	private PlayerManagementFacade playerManagementFacade;
 	private Player player;
-	private GameWindowTemplate level;
+	private IGameLevel level;
 	private SingletonController controller;
 	
 	public GameState(Socket socket) throws IOException {
@@ -29,20 +31,18 @@ public class GameState extends State {
 		//player = playerManagementFacade.flyingPlayer();
 		player = playerManagementFacade.runningPlayer();
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		level = new GameLevel();
-//		level.load("colorRunner/res/levels/level1.txt");
-		level.load(System.getProperty("user.dir") + "/res/levels/level1.txt");
+		level = new LazyGameLevelProxy(System.getProperty("user.dir") + "/res/levels/level1.txt");
 	}
 	
 	@Override
 	public void update() {
-		((GameLevel)level).update();
+		((LazyGameLevelProxy)level).update();
 		player.update();
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		((GameLevel)level).render(g);;
+		((LazyGameLevelProxy)level).render(g);;
 		player.render(g, (int)player.getX());
 	}
 	
@@ -50,8 +50,8 @@ public class GameState extends State {
 		return player;
 	}
 
-	public GameLevel getLevel() {
-		return (GameLevel)level;
+	public IGameLevel getLevel() {
+		return (LazyGameLevelProxy)level;
 	}
 
 	public void setPlayerStrategy(String strategy) throws IOException {

@@ -6,6 +6,7 @@ import dev.runnergame.command.MoveLeftCommand;
 import dev.runnergame.command.MoveRightCommand;
 import dev.runnergame.command.MoveUpCommand;
 import dev.runnergame.composite.Score;
+import dev.runnergame.proxy.IGameLevel;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import dev.runnergame.factory.EffectCreator;
 import dev.runnergame.template.GameWindowTemplate;
 import dev.runnergame.utils.Utils;
 
-public class GameLevel extends GameWindowTemplate {
+public class GameLevel extends GameWindowTemplate implements IGameLevel {
 	private SingletonController controller;
 	private int size;
 	private EffectCreator effectFactory;
