@@ -8,6 +8,10 @@ import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
 import dev.runnergame.bridge.Stone;
 import dev.runnergame.bridge.Wood;
+import dev.runnergame.chainOfResponsibility.AbstractLogger;
+import dev.runnergame.chainOfResponsibility.ConsoleLogger;
+import dev.runnergame.chainOfResponsibility.ErrorLogger;
+import dev.runnergame.chainOfResponsibility.FileLogger;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
@@ -116,6 +120,18 @@ public class SingletonController implements Runnable {
 		allStructures.add(new AccelerationPlatform(190,10,50 ,10, new Wood(),platformAccelerationEffect1));
 		allStructures.add(new AccelerationPlatform(250,30,50 ,10, new Wood(),platformAccelerationEffect2));
 		allStructures.add(new AccelerationPlatform(290,30,50 ,10, new Wood(),platformAccelerationEffect2));
+
+		//Chain of responsibility logger example
+		AbstractLogger loggerChain = getChainOfLoggers();
+
+		loggerChain.logMessage(AbstractLogger.INFO,
+				"This is an information.");
+
+		loggerChain.logMessage(AbstractLogger.DEBUG,
+				"This is an debug level information.");
+
+		loggerChain.logMessage(AbstractLogger.ERROR,
+				"This is an error information.");
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -258,6 +274,19 @@ public class SingletonController implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static AbstractLogger getChainOfLoggers(){
+
+		AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.DEBUG);
+		AbstractLogger fileLogger = new FileLogger(AbstractLogger.ERROR);
+		AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+
+		fileLogger.setNextLogger(errorLogger);
+		errorLogger.setNextLogger(consoleLogger);
+
+
+		return fileLogger;
 	}
 
 	public EffectCreator getEffectFactory() {
