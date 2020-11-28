@@ -1,5 +1,6 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.flyweight.EffectColor;
 import dev.runnergame.states.State;
 
 import java.awt.Color;
@@ -10,8 +11,8 @@ import java.util.TimerTask;
 
 public class FlyEffect extends Effect {
 
-	public FlyEffect(float x, float y) {
-		super(x, y);
+	public FlyEffect(float x, float y, EffectColor ec) {
+		super(x, y, ec);
 	}
 
 	@Override
@@ -21,7 +22,7 @@ public class FlyEffect extends Effect {
 
 	@Override
 	public void render(Graphics g, int newX) {
-		g.setColor(Color.ORANGE);
+		g.setColor(color.getColor());
 		g.fillRect((int) newX, (int) y, width, height);
 	}
 
