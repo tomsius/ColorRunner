@@ -1,14 +1,16 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.composite.Score;
 import dev.runnergame.flyweight.EffectColor;
+import java.awt.Graphics;
 
-import java.awt.*;
-
-public abstract class Effect extends Entity {
+public abstract class Effect extends Entity implements Score {
 
 	public static final int DEFAULT_EFFECT_WIDTH = 10,
 							DEFAULT_EFFECT_HEIGHT = 10;
 	protected EffectColor color;
+
+	protected int score = 0;
 
 	public Effect(float x, float y){
 		super(x, y, DEFAULT_EFFECT_WIDTH, DEFAULT_EFFECT_HEIGHT);

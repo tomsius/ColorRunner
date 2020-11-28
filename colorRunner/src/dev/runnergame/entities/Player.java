@@ -1,5 +1,6 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.states.State;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
@@ -78,6 +79,7 @@ public class Player extends Entity {
 		if(getX() > 640) {
 			setX(640);
 			System.out.println("Laimejo / pakeisti apribojima Player.update() metode");
+			controller.getScoreWindow().displayScore();
 		}
 		if(getY() < 0) {
 			setY(0);

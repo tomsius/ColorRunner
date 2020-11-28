@@ -53,4 +53,18 @@ public class StunEffect extends Effect {
 
 	}
 
+	@Override
+	public void displayScore() {
+		System.out.println("Stun effect: " + score);
+	}
+
+	@Override
+	public void increaseScore() {
+		score++;
+	}
+
+	@Override
+	public int getScore() {
+		return score;
+	}
 }

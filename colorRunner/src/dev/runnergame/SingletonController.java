@@ -12,6 +12,8 @@ import dev.runnergame.chainOfResponsibility.AbstractLogger;
 import dev.runnergame.chainOfResponsibility.ConsoleLogger;
 import dev.runnergame.chainOfResponsibility.ErrorLogger;
 import dev.runnergame.chainOfResponsibility.FileLogger;
+import dev.runnergame.composite.Score;
+import dev.runnergame.composite.ScoreWindow;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
@@ -57,6 +59,10 @@ public class SingletonController implements Runnable {
 	private AbstractStructureFactory obstacleFactory;
 
 	private List<Structure> allStructures;
+
+	// Scores
+	private ScoreWindow scoreWindow;
+	private List<Score> scores;
 
 	public String title;
 	private int width, height;
@@ -144,6 +150,8 @@ public class SingletonController implements Runnable {
 
 		effectList = gameState.getLevel().getLevelEffects();
 
+		scoreWindow = new ScoreWindow(effectList);
+
 		floor = new Floor(0, 335, 640, 60, Color.PINK);
 
 		new Thread(serverConn).start();
@@ -163,11 +171,12 @@ public class SingletonController implements Runnable {
 
 			for (int i = 0; i < effectList.size(); i++) {
 				if (effectList.get(i).checkCollision(player, i)) {
+					Score score = effectList.get(i);
+					score.increaseScore();
 					effectList.remove(i);
 					i--;
 				}
 			}
-
 		}
 	}
 
@@ -299,5 +308,9 @@ public class SingletonController implements Runnable {
 
 	public AbstractStructureFactory getObstacleFactory() {
 		return obstacleFactory;
+	}
+
+	public ScoreWindow getScoreWindow(){
+		return scoreWindow;
 	}
 }

@@ -5,6 +5,7 @@ import dev.runnergame.command.MoveDownCommand;
 import dev.runnergame.command.MoveLeftCommand;
 import dev.runnergame.command.MoveRightCommand;
 import dev.runnergame.command.MoveUpCommand;
+import dev.runnergame.composite.Score;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,5 +140,16 @@ public class GameLevel extends GameWindowTemplate {
 		}
 
 		return effectList;
+	}
+
+	public List<Score> getLevelScores() {
+		List<Score> scores = new ArrayList<Score>();
+
+		for(int i = 0; i < size; i++) {
+			if(objects.get(i) instanceof Score) {
+				scores.add((Score) objects.get(i));
+			}
+		}
+		return scores;
 	}
 }
