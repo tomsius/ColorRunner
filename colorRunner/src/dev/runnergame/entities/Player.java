@@ -80,6 +80,7 @@ public class Player extends Entity {
 			setX(640);
 			System.out.println("Laimejo / pakeisti apribojima Player.update() metode");
 			controller.getScoreWindow().displayScore();
+			controller.getFinalScore();
 		}
 		if(getY() < 0) {
 			setY(0);

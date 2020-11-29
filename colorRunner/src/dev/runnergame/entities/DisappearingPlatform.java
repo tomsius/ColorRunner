@@ -2,6 +2,7 @@ package dev.runnergame.entities;
 
 import dev.runnergame.bridge.IStructureType;
 
+import dev.runnergame.visitor.Visitor;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +14,12 @@ public class DisappearingPlatform extends Platform {
     super(x, y, width, height, type);
   }
 
-    @Override
+  @Override
+  public double accept(Visitor visitor) {
+    return visitor.disappearingPlatformScore(this);
+  }
+
+  @Override
     public void onCollision(Player p) {
     }
 

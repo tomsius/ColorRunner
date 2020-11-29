@@ -3,6 +3,7 @@ package dev.runnergame.entities;
 import dev.runnergame.bridge.IStructureType;
 import dev.runnergame.observer.PlatformObserver;
 
+import dev.runnergame.visitor.Visitor;
 import java.awt.*;
 
 public class AccelerationPlatform extends PlatformObserver {
@@ -46,5 +47,10 @@ public class AccelerationPlatform extends PlatformObserver {
     @Override
     public void modifySpeed() {
 
+    }
+
+    @Override
+    public double accept(Visitor visitor) {
+        return visitor.accelerationPlatformScore(this);
     }
 }

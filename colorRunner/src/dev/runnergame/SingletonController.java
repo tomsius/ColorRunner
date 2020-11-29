@@ -17,6 +17,7 @@ import dev.runnergame.composite.ScoreWindow;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
+import dev.runnergame.visitor.EntityScore;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
@@ -63,6 +64,8 @@ public class SingletonController implements Runnable {
 	// Scores
 	private ScoreWindow scoreWindow;
 	private List<Score> scores;
+
+	private List<Platform> scoredPlatforms = new ArrayList<Platform>();
 
 	public String title;
 	private int width, height;
@@ -166,7 +169,11 @@ public class SingletonController implements Runnable {
 			platformAccelerationEffect1.checkCollision(player);
 			platformAccelerationEffect2.checkCollision(player);
 			for (Structure structure : allStructures) {
-				structure.checkCollision(player);
+				if(structure.checkCollision(player, 1)){
+					if(structure instanceof Platform){
+						scoredPlatforms.add((Platform)structure);
+					}
+				}
 			}
 
 			for (int i = 0; i < effectList.size(); i++) {
@@ -177,6 +184,8 @@ public class SingletonController implements Runnable {
 					i--;
 				}
 			}
+
+
 		}
 	}
 
@@ -312,5 +321,9 @@ public class SingletonController implements Runnable {
 
 	public ScoreWindow getScoreWindow(){
 		return scoreWindow;
+	}
+
+	public void getFinalScore(){
+		System.out.println("Final player score: " + new EntityScore().getFinalScore(scoredPlatforms));
 	}
 }

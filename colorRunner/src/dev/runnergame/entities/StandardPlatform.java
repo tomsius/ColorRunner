@@ -2,6 +2,7 @@ package dev.runnergame.entities;
 
 import dev.runnergame.bridge.IStructureType;
 
+import dev.runnergame.visitor.Visitor;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -11,6 +12,11 @@ public class StandardPlatform extends Platform {
     super(x, y, width, height, type);
     this.DEFAULT_SPEED = 1.2f;
     // TODO make platform moving or not
+  }
+
+  @Override
+  public double accept(Visitor visitor) {
+    return visitor.standardPlatformScore(this);
   }
 
   @Override
