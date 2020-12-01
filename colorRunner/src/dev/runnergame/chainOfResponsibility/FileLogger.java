@@ -10,9 +10,9 @@ public class FileLogger extends AbstractLogger {
     @Override
     protected void write(String message) {
         try {
-//            FileWriter myWriter = new FileWriter("colorRunner/res/logs/logs.txt");
-            FileWriter myWriter = new FileWriter(System.getProperty("user.dir") + "/res/logs/logs.txt");
-            myWriter.write(message);
+           //FileWriter myWriter = new FileWriter("colorRunner/res/logs/logs.txt", true);
+            FileWriter myWriter = new FileWriter(System.getProperty("user.dir") + "/res/logs/logs.txt", true);
+            myWriter.write(message + '\n');
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred while trying to write to log file.");

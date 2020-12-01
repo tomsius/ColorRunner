@@ -8,10 +8,7 @@ import dev.runnergame.abstractFactory.AbstractStructureFactory;
 import dev.runnergame.abstractFactory.StructureFactoryProducer;
 import dev.runnergame.bridge.Stone;
 import dev.runnergame.bridge.Wood;
-import dev.runnergame.chainOfResponsibility.AbstractLogger;
-import dev.runnergame.chainOfResponsibility.ConsoleLogger;
-import dev.runnergame.chainOfResponsibility.ErrorLogger;
-import dev.runnergame.chainOfResponsibility.FileLogger;
+import dev.runnergame.chainOfResponsibility.*;
 import dev.runnergame.composite.Score;
 import dev.runnergame.composite.ScoreWindow;
 import dev.runnergame.display.GameCamera;
@@ -141,6 +138,9 @@ public class SingletonController implements Runnable {
 
 		loggerChain.logMessage(AbstractLogger.ERROR,
 				"This is an error information.");
+		loggerChain.logMessage(AbstractLogger.SEVERE_ERROR,
+				"This is a severe error information.");
+
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -299,12 +299,14 @@ public class SingletonController implements Runnable {
 		AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.DEBUG);
 		AbstractLogger fileLogger = new FileLogger(AbstractLogger.ERROR);
 		AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+		AbstractLogger jsonLogger = new JsonLogger(AbstractLogger.SEVERE_ERROR);
 
+		jsonLogger.setNextLogger(fileLogger);
 		fileLogger.setNextLogger(errorLogger);
 		errorLogger.setNextLogger(consoleLogger);
 
 
-		return fileLogger;
+		return jsonLogger;
 	}
 
 	public EffectCreator getEffectFactory() {
