@@ -14,6 +14,7 @@ import dev.runnergame.composite.ScoreWindow;
 import dev.runnergame.display.GameCamera;
 import dev.runnergame.entities.*;
 
+import dev.runnergame.mediator.*;
 import dev.runnergame.visitor.EntityScore;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -57,6 +58,7 @@ public class SingletonController implements Runnable {
 	private AbstractStructureFactory obstacleFactory;
 
 	private List<Structure> allStructures;
+	private List<Creature> allCreatures;
 
 	// Scores
 	private ScoreWindow scoreWindow;
@@ -99,6 +101,7 @@ public class SingletonController implements Runnable {
 
 		effectFactory = new EffectCreator();
 		allStructures = new ArrayList<Structure>();
+		allCreatures = new ArrayList<Creature>();
 
 		//positive = effectFactory.createEffect("positive", 10, 10);
 		//negative = effectFactory.createEffect("negative", 100, 100);
@@ -141,6 +144,21 @@ public class SingletonController implements Runnable {
 		loggerChain.logMessage(AbstractLogger.SEVERE_ERROR,
 				"This is a severe error information.");
 
+		IMediator mediator = new CreatureMediator();
+		allCreatures.add(new RedCreature(120,280,10,10,mediator));
+		allCreatures.add(new RedCreature(120,300,10,10,mediator));
+		allCreatures.add(new RedCreature(120,320,10,10,mediator));
+		allCreatures.add(new OrangeCreature(150,280,10,10,mediator));
+		allCreatures.add(new OrangeCreature(150,300,10,10,mediator));
+		allCreatures.add(new OrangeCreature(150,320,10,10,mediator));
+		allCreatures.add(new DarkRedCreature(180,280,10,10,mediator));
+		allCreatures.add(new DarkRedCreature(180,300,10,10,mediator));
+		allCreatures.add(new DarkRedCreature(180,320,10,10,mediator));
+
+		for(Creature creature : allCreatures){
+			mediator.addCreature(creature);
+		}
+
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
@@ -168,6 +186,9 @@ public class SingletonController implements Runnable {
 			Player player = gameState.getPlayer();
 			platformAccelerationEffect1.checkCollision(player);
 			platformAccelerationEffect2.checkCollision(player);
+			for(Creature creature: allCreatures){
+				creature.checkCollision(player);
+			}
 			for (Structure structure : allStructures) {
 				if(structure.checkCollision(player, 1)){
 					if(structure instanceof Platform){
@@ -212,6 +233,9 @@ public class SingletonController implements Runnable {
 		platformAccelerationEffect2.render(g, (int) (platformAccelerationEffect2.getX() - gameCamera.getxOffset()));
 		for (Structure structure : allStructures) {
 			structure.render(g, (int) (structure.getX()-gameCamera.getxOffset()));
+		}
+		for(Creature creature: allCreatures){
+			creature.render(g, (int)(creature.getX()-gameCamera.getxOffset()));
 		}
 
 		floor.render(g);
