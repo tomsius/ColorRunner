@@ -2,6 +2,7 @@ package dev.runnergame.strategy;
 
 import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
+import dev.runnergame.memento.StrategyMemento;
 
 public class Fly implements IMoveStrategy {
 
@@ -26,6 +27,11 @@ public class Fly implements IMoveStrategy {
 		if(controller.getKeyManager().right) {
 			player.setxMove(player.getSpeed());
 		}
+	}
+
+	@Override
+	public StrategyMemento saveStateToMemento() {
+		return new StrategyMemento("Fly");
 	}
 
 }

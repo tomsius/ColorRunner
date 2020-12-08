@@ -2,6 +2,7 @@ package dev.runnergame.strategy;
 
 import dev.runnergame.SingletonController;
 import dev.runnergame.entities.Player;
+import dev.runnergame.memento.StrategyMemento;
 
 public class Run implements IMoveStrategy {
 
@@ -25,6 +26,11 @@ public class Run implements IMoveStrategy {
 			player.jumpY = (int) player.getY() - 50;
 			player.isJumping = true;
 		}
+	}
+
+	@Override
+	public StrategyMemento saveStateToMemento() {
+		return new StrategyMemento("Run");
 	}
 
 }
