@@ -1,5 +1,6 @@
 package dev.runnergame.entities;
 
+import dev.runnergame.memento.StrategyCareTaker;
 import dev.runnergame.states.State;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,6 +22,8 @@ public class Player extends Entity {
 	private int enemyWidth = 0, enemyHeight = 0;
 	private float speed;
 	private IMoveStrategy movementStrategy;
+	public  StrategyCareTaker careTaker;
+
 
 	// jump
 	public int speedY = 0;
@@ -34,6 +37,7 @@ public class Player extends Entity {
 		//this.controller = playerBuilder.controller;
 		this.speed = DEFAULT_SPEED;
 		this.out = playerBuilder.out;
+		careTaker = new StrategyCareTaker();
 	}
 	
 	public static class PlayerBuilder {
@@ -81,6 +85,7 @@ public class Player extends Entity {
 			System.out.println("Laimejo / pakeisti apribojima Player.update() metode");
 			controller.getScoreWindow().displayScore();
 			controller.getFinalScore();
+			careTaker.getAllMoves();
 		}
 		if(getY() < 0) {
 			setY(0);
@@ -138,5 +143,6 @@ public class Player extends Entity {
 
 	public void setMovementStrategy(IMoveStrategy movementStrategy) {
 		this.movementStrategy = movementStrategy;
+		careTaker.add(movementStrategy.saveStateToMemento());
 	}
 }
