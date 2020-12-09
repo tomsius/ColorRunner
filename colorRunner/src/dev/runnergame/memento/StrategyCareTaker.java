@@ -13,6 +13,13 @@ public class StrategyCareTaker {
     public StrategyMemento get(int index){
         return mementoList.get(index);
     }
+    public StrategyMemento getLast(){
+        if(mementoList.size() > 0) {
+            return mementoList.get(mementoList.size() - 1);
+        } else {
+            return mementoList.get(0);
+        }
+    }
 
     public void getAllMoves(){
         System.out.println("Player move order:");

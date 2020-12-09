@@ -1,5 +1,6 @@
 7
 100 100
+effect stun 150 305
 effect fly 200 305
 effect slide 400 305
 effect stun 600 305
